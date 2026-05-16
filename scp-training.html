@@ -480,13 +480,132 @@ textarea {
   </div>
 </div>
 
+<div id="cert-wrapper" style="display:none; margin-top:32px;">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-dot"></div>
+      <h2>SCP CERTIFICATE</h2>
+    </div>
+
+    <div class="card-body" style="text-align:center;">
+
+      <div id="certificate" style="background:#49C5B1; padding:32px; border-radius:12px;">
+
+        <div style="background:white; border-radius:8px; padding:60px 50px; text-align:left; min-height:420px; position:relative;">
+
+          <div style="margin-bottom:50px;">
+            <h2 style="font-size:32px; color:#1F2A44; font-weight:800; margin-bottom:8px;">
+              TEAL PRODUCTS
+            </h2>
+            <p style="color:#49C5B1; font-weight:700; letter-spacing:1px;">
+              SMOKE CONTROL PANEL (SCP)
+            </p>
+          </div>
+
+          <div style="margin-bottom:40px;">
+            <p style="font-size:15px; color:#6b7e7c; margin-bottom:14px;">
+              This certificate confirms that
+            </p>
+
+            <h1 id="cert-name" style="font-size:36px; color:#1F2A44; font-weight:800; margin-bottom:18px;">
+              John Smith
+            </h1>
+
+            <p style="font-size:16px; color:#444; line-height:1.7; max-width:640px;">
+              has successfully completed the Smoke Control Panel registration and information submission process with Teal Products.
+            </p>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:80px; gap:20px; flex-wrap:wrap;">
+
+            <div>
+              <div style="font-size:15px; font-weight:700; color:#1F2A44; margin-bottom:6px;">
+                Teal Products
+              </div>
+              <div style="font-size:13px; color:#6b7e7c;">
+                Smoke Ventilation Division
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:12px; color:#6b7e7c; margin-bottom:4px;">
+                Date Issued
+              </div>
+              <div id="cert-date" style="font-size:16px; font-weight:700; color:#1F2A44;">
+                01 January 2026
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="btn-row" style="justify-content:center; margin-top:24px;">
+        <button id="download-cert" class="btn btn-teal" type="button">
+          Download Certificate
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <script>
 const form = document.getElementById('scp-form');
+const certWrapper = document.getElementById('cert-wrapper');
+const certName = document.getElementById('cert-name');
+const certDate = document.getElementById('cert-date');
+const downloadBtn = document.getElementById('download-cert');
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
 
-  alert('Thank you. Your SCP details have been submitted successfully.');
+  const firstName = document.querySelectorAll('input')[0].value;
+  const lastName = document.querySelectorAll('input')[1].value;
+
+  certName.textContent = `${firstName} ${lastName}`;
+
+  const today = new Date();
+  certDate.textContent = today.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  certWrapper.style.display = 'block';
+
+  certWrapper.scrollIntoView({
+    behavior: 'smooth'
+  });
+});
+
+downloadBtn.addEventListener('click', async () => {
+
+  const certificate = document.getElementById('certificate');
+
+  const canvas = await html2canvas(certificate, {
+    scale: 2,
+    useCORS: true
+  });
+
+  const imgData = canvas.toDataURL('image/png');
+
+  const { jsPDF } = window.jspdf;
+
+  const pdf = new jsPDF({
+    orientation: 'landscape',
+    unit: 'px',
+    format: [canvas.width, canvas.height]
+  });
+
+  pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+  pdf.save('SCP-Certificate.pdf');
 });
 </script>
 
@@ -494,4 +613,5 @@ form.addEventListener('submit', function(e) {
 </html>
 ```
 
-This version keeps the same overall visual styling and layout structure from the original CPD page, while removing the quiz, scoring, certificate, and review functionality. It is now focused purely on a clean SCP landing and registration form experience.
+This version keeps the same overall visual styling and layout structure from the original CPD page, but removes only the quiz/review sections while retaining the certificate generation functionality. Users complete the landing form and can then generate/download a branded SCP completion certificate.
+
