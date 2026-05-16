@@ -428,74 +428,72 @@
   #cert-wrapper { display: none; }
 
   /* Teal background wrapper mimicking the PDF design */
+  /* ── CERTIFICATE — matches design PDF exactly ── */
   .cert-outer {
-    background: var(--teal);
-    border-radius: 14px;
-    padding: 28px;
+    background: #49C5B1;
+    border-radius: 12px;
+    padding: 32px;
     box-shadow: 0 8px 40px rgba(31,42,68,0.22);
     position: relative;
     overflow: hidden;
+    width: 860px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
-  /* Subtle teal grid pattern overlay on outer */
   .cert-outer::before {
     content: '';
     position: absolute; inset: 0;
     background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.07) 20px, rgba(255,255,255,0.07) 21px),
-      repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,0.07) 20px, rgba(255,255,255,0.07) 21px);
+      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.13) 28px, rgba(255,255,255,0.13) 29px),
+      repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(255,255,255,0.13) 28px, rgba(255,255,255,0.13) 29px);
     pointer-events: none;
+    z-index: 0;
   }
   .cert-inner {
     background: white;
-    border-radius: 8px;
-    padding: 48px 52px 40px;
+    border-radius: 6px;
+    padding: 52px 60px 48px;
     position: relative;
     z-index: 1;
     text-align: left;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
   }
-  @media(max-width:600px){ .cert-inner { padding: 32px 24px 28px; } }
-
-  /* Teal Products SVG logo — replicated from actual brand */
-  .cert-logo-area { margin-bottom: 36px; }
-  .cert-logo-svg { height: 48px; width: auto; }
-
+  .cert-logo-area { margin-bottom: 44px; }
+  .cert-logo-area img { height: 56px; width: auto; display: block; }
   .cert-name-line {
-    font-size: clamp(20px, 3.2vw, 26px); font-weight: 800;
-    color: var(--blue); margin-bottom: 10px;
+    font-size: 22px; font-weight: 800;
+    color: #1F2A44; margin-bottom: 12px;
+    font-family: 'Montserrat', sans-serif;
   }
   .cert-subtitle {
-    font-size: 14px; font-weight: 400; color: var(--text);
-    line-height: 1.6; margin-bottom: 6px;
+    font-size: 14px; font-weight: 400; color: #333;
+    line-height: 1.7; margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
   }
   .cert-course {
-    font-size: clamp(16px, 2.5vw, 20px); font-weight: 800;
-    color: var(--blue); margin-bottom: 0;
+    font-size: 20px; font-weight: 800;
+    color: #1F2A44; margin-bottom: 0;
+    font-family: 'Montserrat', sans-serif;
   }
-
-  /* Spacer between text and footer */
-  .cert-spacer { height: 60px; }
-
+  .cert-spacer { flex: 1; min-height: 60px; }
   .cert-footer {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    gap: 24px; flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-top: 8px;
   }
-  .cert-sig-block { display: flex; flex-direction: column; gap: 4px; }
-  /* Hand-drawn signature line using SVG path */
-  .cert-sig-svg { width: 120px; height: 52px; margin-bottom: 4px; }
-  .cert-sig-name { font-size: 12px; color: #666; font-weight: 400; }
-  .cert-sig-role { font-size: 12px; color: #666; font-weight: 400; }
-
-  .cert-date-block { display: flex; flex-direction: column; gap: 4px; }
-  .cert-date-label { font-size: 12px; color: #666; font-weight: 400; }
-  .cert-date-val { font-size: 15px; font-weight: 700; color: var(--blue); }
-
-  .cert-cpd-logo { display: flex; align-items: center; }
-  /* CPD Certified badge replicated as SVG */
-  .cert-cpd-svg { width: 80px; height: 80px; }
-
-  @media(max-width:580px){
-    .cert-footer { flex-direction: column; align-items: flex-start; }
-  }
+  .cert-sig-block { display: flex; flex-direction: column; gap: 2px; }
+  .cert-sig-block img { height: 64px; width: auto; display: block; margin-bottom: 6px; }
+  .cert-sig-name { font-size: 12px; color: #555; font-weight: 400; font-family: 'Montserrat', sans-serif; }
+  .cert-sig-role { font-size: 12px; color: #555; font-weight: 400; font-family: 'Montserrat', sans-serif; }
+  .cert-date-block { display: flex; flex-direction: row; align-items: baseline; gap: 8px; }
+  .cert-date-label { font-size: 12px; color: #555; font-weight: 400; font-family: 'Montserrat', sans-serif; }
+  .cert-date-val { font-size: 15px; font-weight: 700; color: #1F2A44; font-family: 'Montserrat', sans-serif; }
+  .cert-cpd-logo { display: flex; align-items: flex-end; }
+  .cert-cpd-logo img { height: 80px; width: auto; display: block; }
 
   /* ── SUBSCRIBE CHECKBOX ── */
   .subscribe-check {
@@ -1125,10 +1123,10 @@ function buildCertHTML(name, company, jobtitle, date, score, certId) {
           <div class="cert-sig-role">Managing Director</div>
         </div>
 
-        <!-- Issue date -->
+        <!-- Issue date — shown inline as in design PDF -->
         <div class="cert-date-block">
-          <div class="cert-date-label">Issue Date:</div>
-          <div class="cert-date-val">${date}</div>
+          <span class="cert-date-label">Issue Date:</span>
+          <span class="cert-date-val">${date}</span>
         </div>
 
         <!-- CPD Certified badge -->
@@ -1149,45 +1147,34 @@ function downloadCertPDF() {
   const certEl = document.querySelector('.cert-outer');
   if (!certEl) { alert('Certificate not found.'); return; }
 
-  // Temporarily expand cert for capture
+  // Force fixed width for consistent A4-landscape capture
   const origWidth = certEl.style.width;
-  certEl.style.width = '1122px'; // A4 landscape at 96dpi
+  certEl.style.width = '1050px';
 
-  html2canvas(certEl, {
-    scale: 2,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: null,
-    logging: false
-  }).then(function(canvas) {
-    certEl.style.width = origWidth;
+  // Wait a tick for layout to reflow
+  setTimeout(function() {
+    html2canvas(certEl, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#49C5B1',
+      logging: false,
+      windowWidth: 1200
+    }).then(function(canvas) {
+      certEl.style.width = origWidth;
 
-    const imgData = canvas.toDataURL('image/png');
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-    const W = 297, H = 210;
-
-    // Fit image to page
-    const canvasAspect = canvas.width / canvas.height;
-    const pageAspect   = W / H;
-    let imgW, imgH, offsetX = 0, offsetY = 0;
-    if (canvasAspect > pageAspect) {
-      imgW = W;
-      imgH = W / canvasAspect;
-      offsetY = (H - imgH) / 2;
-    } else {
-      imgH = H;
-      imgW = H * canvasAspect;
-      offsetX = (W - imgW) / 2;
-    }
-
-    doc.addImage(imgData, 'PNG', offsetX, offsetY, imgW, imgH);
-    doc.save(`TealProducts_SmokeVentilation_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
-  }).catch(function(err) {
-    certEl.style.width = origWidth;
-    console.error('Certificate capture failed:', err);
-    alert('Could not generate PDF. Please try again.');
-  });
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      const { jsPDF } = window.jspdf;
+      // A4 landscape: 297 x 210 mm — fill full page with no margin
+      const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+      doc.addImage(imgData, 'JPEG', 0, 0, 297, 210);
+      doc.save(`TealProducts_CPD_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
+    }).catch(function(err) {
+      certEl.style.width = origWidth;
+      console.error('Certificate capture failed:', err);
+      alert('Could not generate PDF. Please try again.');
+    });
+  }, 100);
 
 }
 </script>
