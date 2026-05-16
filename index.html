@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teal Products – Training Courses</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:       #49C5B1;
+    --teal-80:    #6dd0bf;
+    --teal-60:    #91dbcf;
+    --teal-40:    #b6e8df;
+    --teal-20:    #daf3ef;
+    --blue:       #1F2A44;
+    --blue-mid:   #2a3a5c;
+    --white:      #ffffff;
+    --off-white:  #f4f8f7;
+    --grey-light: #edf1f0;
+    --grey-mid:   #c8d4d2;
+    --grey-text:  #6b7e7c;
+    --text:       #1a2b29;
+    --radius:     10px;
+    --shadow:     0 4px 20px rgba(31,42,68,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER BAND ── */
+  .header-band {
+    background: var(--off-white);
+    padding: 36px 20px 0;
+  }
+
+  .header {
+    max-width: 960px;
+    margin: 0 auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--blue);
+    position: relative;
+    min-height: 260px;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: var(--shadow);
+  }
+
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(15,22,40,0.92) 0%,
+      rgba(15,22,40,0.72) 55%,
+      rgba(15,22,40,0.28) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Decorative geometric pattern overlay */
+  .header::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 80% 30%, rgba(73,197,177,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 90% 80%, rgba(73,197,177,0.08) 0%, transparent 40%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .header-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a2f4a 0%, #0f1e35 60%, #162a3e 100%);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  /* Subtle grid texture on header */
+  .header-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40' stroke='rgba(73,197,177,0.06)' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");
+    z-index: 0;
+  }
+
+  .header-content {
+    position: relative; z-index: 2;
+    padding: 44px 44px 44px;
+    max-width: 700px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 28px;
+  }
+
+  .logo svg { height: 52px; width: auto; }
+
+  .header h1 {
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .header-label {
+    font-size: 13px; font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .header p {
+    color: rgba(255,255,255,0.72);
+    font-size: 14px;
+    line-height: 1.65;
+    font-weight: 400;
+    max-width: 500px;
+  }
+
+  @media(max-width:600px){
+    .header-content { padding: 32px 24px; }
+    .header h1 { font-size: 24px; }
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 36px 20px 72px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-label-bar { width: 4px; height: 28px; background: var(--teal); border-radius: 2px; flex-shrink: 0; }
+  .section-label h2 { font-size: 19px; font-weight: 800; color: var(--blue); }
+  .section-label p { font-size: 12px; color: var(--grey-text); margin-top: 3px; }
+
+  /* ── COURSE GRID ── */
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  @media(max-width: 680px) {
+    .course-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── COURSE CARD ── */
+  .course-card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--grey-mid);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+
+  .course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(31,42,68,0.18);
+    text-decoration: none;
+  }
+
+  .course-card:hover .card-arrow {
+    background: var(--teal);
+    border-color: var(--teal);
+    transform: translateX(3px);
+  }
+
+  .course-card:hover .card-arrow svg {
+    stroke: white;
+  }
+
+  /* Card top accent strip */
+  .card-accent {
+    height: 5px;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--teal-60) 100%);
+    flex-shrink: 0;
+  }
+
+  /* Card icon area */
+  .card-icon-wrap {
+    background: var(--blue);
+    padding: 24px 28px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .card-icon {
+    width: 48px; height: 48px;
+    background: rgba(73,197,177,0.15);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-icon svg {
+    width: 24px; height: 24px;
+    stroke: var(--teal);
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .card-badge {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--teal);
+    background: rgba(73,197,177,0.15);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(73,197,177,0.3);
+  }
+
+  /* Card body */
+  .card-body {
+    padding: 24px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--blue);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .card-desc {
+    font-size: 12.5px;
+    color: var(--grey-text);
+    line-height: 1.6;
+    font-weight: 500;
+    flex: 1;
+  }
+
+  /* Card footer */
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--grey-light);
+  }
+
+  .card-footer-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .card-arrow {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1.5px solid var(--grey-mid);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.18s ease;
+    flex-shrink: 0;
+  }
+
+  .card-arrow svg {
+    width: 14px; height: 14px;
+    stroke: var(--grey-text);
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.18s ease;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    text-align: center;
+    padding: 0 20px 40px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--grey-text);
+    letter-spacing: 0.3px;
+  }
+
+  .page-footer span {
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header-band">
+  <div class="header">
+    <div class="header-bg"></div>
+    <div class="header-content">
+
+      <!-- Teal Products Logo -->
+      <div class="logo">
+        <svg viewBox="0 0 220 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Icon mark -->
+          <rect x="0" y="8" width="36" height="36" rx="7" fill="#49C5B1"/>
+          <path d="M10 26 L18 18 L26 26 L18 34 Z" fill="white" opacity="0.9"/>
+          <circle cx="26" cy="18" r="4" fill="white" opacity="0.7"/>
+          <!-- Wordmark -->
+          <text x="46" y="34" font-family="Montserrat, sans-serif" font-weight="800" font-size="22" fill="white" letter-spacing="-0.5">TEAL</text>
+          <text x="108" y="34" font-family="Montserrat, sans-serif" font-weight="400" font-size="22" fill="rgba(255,255,255,0.75)" letter-spacing="-0.5">PRODUCTS</text>
+        </svg>
+      </div>
+
+      <div class="header-label">Training &amp; CPD</div>
+      <h1>Training Courses</h1>
+      <p>Select a course below to begin your training. Each module includes an assessment and certificate of completion upon passing.</p>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN CONTENT ── -->
+<div class="container">
+
+  <div class="section-label">
+    <div class="section-label-bar"></div>
+    <div>
+      <h2>Available Courses</h2>
+      <p>4 courses available — click a course to get started</p>
+    </div>
+  </div>
+
+  <div class="course-grid">
+
+    <!-- Course 1: Smoke Control Panel -->
+    <a class="course-card" href="scp-training.html">
+      <div class="card-accent"></div>
+      <div class="card-icon-wrap">
+        <div class="card-icon">
+          <!-- Panel / control icon -->
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="3" width="20" height="18" rx="2"/>
+            <path d="M8 7h8M8 11h5M8 15h3"/>
+            <circle cx="17" cy="15" r="2"/>
+          </svg>
+        </div>
+        <span class="card-badge">Training Course</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Smoke Control Panel (SCP) Training Course</div>
+        <div class="card-desc">A comprehensive training module covering the installation, commissioning and operation of smoke control panels in compliance with current standards.</div>
+        <div class="card-footer">
+          <span class="card-footer-label">Start Course</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Course 2: FlexiSmoke -->
+    <a class="course-card" href="flexismoke.html">
+      <div class="card-accent"></div>
+      <div class="card-icon-wrap">
+        <div class="card-icon">
+          <!-- Multi-zone / layers icon -->
+          <svg viewBox="0 0 24 24">
+            <path d="M2 9l10-6 10 6-10 6-10-6z"/>
+            <path d="M2 15l10 6 10-6"/>
+            <path d="M2 12l10 6 10-6"/>
+          </svg>
+        </div>
+        <span class="card-badge">Training Course</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">FlexiSmoke – Multi Zone Training Course</div>
+        <div class="card-desc">Detailed training on the FlexiSmoke multi-zone system, covering configuration, zone management and fault-finding across complex installations.</div>
+        <div class="card-footer">
+          <span class="card-footer-label">Start Course</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Course 3: Smoke Ventilation Overview -->
+    <a class="course-card" href="smoke-ventilation.html">
+      <div class="card-accent"></div>
+      <div class="card-icon-wrap">
+        <div class="card-icon">
+          <!-- Ventilation / air flow icon -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            <circle cx="12" cy="12" r="4"/>
+          </svg>
+        </div>
+        <span class="card-badge">Training Course</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Smoke Ventilation Overview Training Course</div>
+        <div class="card-desc">An overview of smoke ventilation principles and system design, providing a solid foundation for engineers and specifiers working in fire safety.</div>
+        <div class="card-footer">
+          <span class="card-footer-label">Start Course</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Course 4: CPD -->
+    <a class="course-card" href="cpd-intro.html">
+      <div class="card-accent"></div>
+      <div class="card-icon-wrap">
+        <div class="card-icon">
+          <!-- Certificate / CPD icon -->
+          <svg viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="17" x2="12" y2="17"/>
+            <circle cx="17" cy="17" r="3"/>
+            <path d="M17 21v-1M14.5 18.5l.7-.7M19.5 15.5l-.7.7M20 17h1M14 17h-1M19.5 18.5l-.7-.7M14.5 15.5l.7.7"/>
+          </svg>
+        </div>
+        <span class="card-badge">CPD</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">CPD: An Introduction to Smoke Ventilation Systems</div>
+        <div class="card-desc">Accredited CPD module introducing smoke ventilation systems. Includes a 15-question assessment and a certificate of completion awarded on a 70% pass mark.</div>
+        <div class="card-footer">
+          <span class="card-footer-label">Start CPD</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="page-footer">
+  &copy; 2025 <span>Teal Products Ltd</span> — Internal Use Only
+</div>
+
+</body>
+</html>

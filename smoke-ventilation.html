@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smoke Ventilation Overview Training Course – Teal Products</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:       #49C5B1;
+    --teal-80:    #6dd0bf;
+    --teal-60:    #91dbcf;
+    --teal-40:    #b6e8df;
+    --teal-20:    #daf3ef;
+    --blue:       #1F2A44;
+    --blue-mid:   #2a3a5c;
+    --white:      #ffffff;
+    --off-white:  #f4f8f7;
+    --grey-light: #edf1f0;
+    --grey-mid:   #c8d4d2;
+    --grey-text:  #6b7e7c;
+    --text:       #1a2b29;
+    --radius:     10px;
+    --shadow:     0 4px 20px rgba(31,42,68,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header-band { background: var(--off-white); padding: 36px 20px 0; }
+
+  .header {
+    max-width: 860px;
+    margin: 0 auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--blue);
+    position: relative;
+    min-height: 260px;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: var(--shadow);
+  }
+
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, rgba(15,22,40,0.92) 0%, rgba(15,22,40,0.72) 55%, rgba(15,22,40,0.28) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .header-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a2f4a 0%, #0f1e35 60%, #162a3e 100%);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .header-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40' stroke='rgba(73,197,177,0.06)' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .header-content {
+    position: relative; z-index: 2;
+    padding: 44px;
+    max-width: 640px;
+  }
+
+  .logo { display: flex; align-items: center; margin-bottom: 28px; }
+  .logo svg { height: 52px; width: auto; }
+
+  .header h1 {
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .header-cpd-label {
+    font-size: 13px; font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .header p {
+    color: rgba(255,255,255,0.72);
+    font-size: 14px;
+    line-height: 1.65;
+    font-weight: 400;
+    max-width: 480px;
+  }
+
+  @media(max-width:600px){ .header-content { padding: 32px 24px; } }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 860px; margin: 0 auto; padding: 28px 20px 72px; }
+
+  /* ── SECTION LABEL ── */
+  .section-label { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; margin-top: 8px; }
+  .section-label-bar { width: 4px; height: 24px; background: var(--teal); border-radius: 2px; flex-shrink: 0; }
+  .section-label h3 { font-size: 17px; font-weight: 800; color: var(--blue); }
+  .section-label p { font-size: 12px; color: var(--grey-text); margin-top: 2px; }
+
+  /* ── CARD ── */
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 28px;
+    border: 1px solid var(--grey-mid);
+  }
+  .card-header {
+    background: var(--blue);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .card-header-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+  .card-header h2 { font-size: 15px; font-weight: 700; color: white; letter-spacing: 0.3px; }
+  .card-body { padding: 32px; }
+  @media(max-width:600px){ .card-body { padding: 20px; } }
+
+  /* ── PLACEHOLDER BLOCK ── */
+  .placeholder-zone {
+    border: 2px dashed var(--grey-mid);
+    border-radius: 8px;
+    background: var(--off-white);
+    padding: 48px 32px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .placeholder-zone .ph-icon {
+    width: 56px; height: 56px;
+    background: var(--teal-20);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+
+  .placeholder-zone .ph-icon svg {
+    width: 26px; height: 26px;
+    stroke: var(--teal);
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .placeholder-zone h4 {
+    font-size: 14px; font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+
+  .placeholder-zone p {
+    font-size: 12px;
+    color: var(--grey-text);
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  /* ── ALERT INFO ── */
+  .alert-info {
+    background: var(--teal-20);
+    border: 1px solid var(--teal-40);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .alert-info svg {
+    width: 16px; height: 16px;
+    stroke: var(--teal);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    text-align: center;
+    padding: 0 20px 40px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--grey-text);
+  }
+
+  .page-footer span { color: var(--teal); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="header-band">
+  <div class="header">
+    <div class="header-bg"></div>
+    <div class="header-content">
+      <div class="logo">
+        <svg viewBox="0 0 220 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="8" width="36" height="36" rx="7" fill="#49C5B1"/>
+          <path d="M10 26 L18 18 L26 26 L18 34 Z" fill="white" opacity="0.9"/>
+          <circle cx="26" cy="18" r="4" fill="white" opacity="0.7"/>
+          <text x="46" y="34" font-family="Montserrat, sans-serif" font-weight="800" font-size="22" fill="white" letter-spacing="-0.5">TEAL</text>
+          <text x="108" y="34" font-family="Montserrat, sans-serif" font-weight="400" font-size="22" fill="rgba(255,255,255,0.75)" letter-spacing="-0.5">PRODUCTS</text>
+        </svg>
+      </div>
+      <div class="header-cpd-label">Training Course</div>
+      <h1>Smoke Ventilation Overview Training Course</h1>
+      <p>This course provides an overview of smoke ventilation principles and system design for engineers and specifiers working in fire safety.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="alert-info">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    This page is ready for content — add your course material to the sections below.
+  </div>
+
+  <!-- SECTION 1: Course Introduction -->
+  <div class="section-label">
+    <div class="section-label-bar"></div>
+    <div>
+      <h3>Course Introduction</h3>
+      <p>Overview and objectives</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-dot"></div>
+      <h2>Introduction</h2>
+    </div>
+    <div class="card-body">
+      <div class="placeholder-zone">
+        <div class="ph-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+        </div>
+        <h4>Course Introduction Text</h4>
+        <p>Add your introduction, learning objectives and course overview here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Course Content -->
+  <div class="section-label">
+    <div class="section-label-bar"></div>
+    <div>
+      <h3>Course Content</h3>
+      <p>Main training material</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-dot"></div>
+      <h2>Module 1 — Add Module Title</h2>
+    </div>
+    <div class="card-body">
+      <div class="placeholder-zone">
+        <div class="ph-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h4>Video / Content</h4>
+        <p>Embed your video, slides or written content for this module here.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-dot"></div>
+      <h2>Module 2 — Add Module Title</h2>
+    </div>
+    <div class="card-body">
+      <div class="placeholder-zone">
+        <div class="ph-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h4>Video / Content</h4>
+        <p>Embed your video, slides or written content for this module here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Assessment -->
+  <div class="section-label">
+    <div class="section-label-bar"></div>
+    <div>
+      <h3>Assessment</h3>
+      <p>Course quiz and certification</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-dot"></div>
+      <h2>Course Assessment</h2>
+    </div>
+    <div class="card-body">
+      <div class="placeholder-zone">
+        <div class="ph-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h4>Quiz / Assessment</h4>
+        <p>Add your assessment questions here, or link to a separate quiz page.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  &copy; 2025 <span>Teal Products Ltd</span> — Internal Use Only
+</div>
+
+</body>
+</html>
