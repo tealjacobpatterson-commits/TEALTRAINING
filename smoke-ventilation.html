@@ -3,588 +3,625 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smoke Control Panel (SCP)</title>
+<title>SCP Single Zone — Teal Products Training Certificate</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-:root {
-  --teal:       #49C5B1;
-  --teal-80:    #6dd0bf;
-  --teal-20:    #daf3ef;
-  --blue:       #1F2A44;
-  --blue-mid:   #2a3a5c;
-  --white:      #ffffff;
-  --off-white:  #f4f8f7;
-  --grey-light: #edf1f0;
-  --grey-mid:   #c8d4d2;
-  --grey-text:  #6b7e7c;
-  --text:       #1a2b29;
-  --radius:     10px;
-  --shadow:     0 4px 20px rgba(31,42,68,0.12);
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Montserrat', sans-serif;
-  background: var(--off-white);
-  color: var(--text);
-  min-height: 100vh;
-}
-
-/* ── HEADER ── */
-.header-band {
-  background: var(--off-white);
-  padding: 36px 20px 0;
-}
-
-.header {
-  max-width: 860px;
-  margin: 0 auto;
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--blue);
-  position: relative;
-  min-height: 260px;
-  display: flex;
-  align-items: flex-end;
-  box-shadow: var(--shadow);
-}
-
-.header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    105deg,
-    rgba(15,22,40,0.88) 0%,
-    rgba(15,22,40,0.70) 50%,
-    rgba(15,22,40,0.30) 100%
-  );
-  z-index: 1;
-}
-
-.header-bg {
-  position: absolute;
-  inset: 0;
-  background-image: 
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-}
-
-.header-content {
-  position: relative;
-  z-index: 2;
-  padding: 44px;
-  max-width: 640px;
-}
-
-.logo {
-  margin-bottom: 24px;
-}
-
-.logo h2 {
-  color: white;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-.logo span {
-  color: var(--teal);
-}
-
-.header h1 {
-  font-size: clamp(28px, 4vw, 42px);
-  font-weight: 800;
-  color: white;
-  line-height: 1.15;
-  margin-bottom: 12px;
-}
-
-.header-subtitle {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--teal);
-  margin-bottom: 18px;
-}
-
-.header p {
-  color: rgba(255,255,255,0.78);
-  font-size: 14px;
-  line-height: 1.7;
-  max-width: 500px;
-}
-
-/* ── CONTAINER ── */
-.container {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 20px 80px;
-}
-
-/* ── CARD ── */
-.card {
-  background: white;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  border: 1px solid var(--grey-mid);
-}
-
-.card-header {
-  background: var(--blue);
-  padding: 18px 28px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.card-header-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--teal);
-}
-
-.card-header h2 {
-  color: white;
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.card-body {
-  padding: 36px;
-}
-
-.section-label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 22px;
-}
-
-.section-label-bar {
-  width: 4px;
-  height: 28px;
-  border-radius: 3px;
-  background: var(--teal);
-}
-
-.section-label h3 {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--blue);
-}
-
-.section-label p {
-  font-size: 13px;
-  color: var(--grey-text);
-  margin-top: 3px;
-}
-
-/* ── FORM ── */
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-
-.form-group.full {
-  grid-column: 1 / -1;
-}
-
-.form-group label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  color: var(--blue);
-}
-
-.form-group label span {
-  color: var(--teal);
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 14px 16px;
-  border: 1.5px solid var(--grey-mid);
-  border-radius: 6px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text);
-  background: var(--off-white);
-  transition: all 0.2s ease;
-  outline: none;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--teal);
-  background: white;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-/* ── CHECKBOX ── */
-.subscribe-check {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-top: 24px;
-  cursor: pointer;
-}
-
-.subscribe-check input {
-  margin-top: 4px;
-  accent-color: var(--teal);
-}
-
-.subscribe-text {
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--text);
-}
-
-.subscribe-sub {
-  display: block;
-  margin-top: 4px;
-  font-size: 11px;
-  color: var(--grey-text);
-}
-
-/* ── BUTTONS ── */
-.btn-row {
-  display: flex;
-  gap: 14px;
-  margin-top: 32px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 30px;
-  border: none;
-  border-radius: 6px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  letter-spacing: 0.4px;
-}
-
-.btn-teal {
-  background: var(--teal);
-  color: white;
-  box-shadow: 0 4px 14px rgba(73,197,177,0.35);
-}
-
-.btn-teal:hover {
-  background: var(--teal-80);
-  transform: translateY(-1px);
-}
-
-.btn-outline {
-  background: white;
-  border: 2px solid var(--blue);
-  color: var(--blue);
-}
-
-.btn-outline:hover {
-  background: var(--blue);
-  color: white;
-}
-
-.footer-note {
-  margin-top: 24px;
-  font-size: 12px;
-  color: var(--grey-text);
-  line-height: 1.6;
-}
-
-@media(max-width: 700px) {
-  .form-grid {
-    grid-template-columns: 1fr;
+  :root {
+    --teal:       #49C5B1;
+    --teal-80:    #6dd0bf;
+    --teal-60:    #91dbcf;
+    --teal-40:    #b6e8df;
+    --teal-20:    #daf3ef;
+    --blue:       #1F2A44;
+    --blue-mid:   #2a3a5c;
+    --white:      #ffffff;
+    --off-white:  #f4f8f7;
+    --grey-light: #edf1f0;
+    --grey-mid:   #c8d4d2;
+    --grey-text:  #6b7e7c;
+    --text:       #1a2b29;
+    --success:    #3ab572;
+    --fail:       #e05252;
+    --radius:     10px;
+    --shadow:     0 4px 20px rgba(31,42,68,0.12);
   }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header-band {
+    background: var(--off-white);
+    padding: 36px 20px 0;
+  }
+  .header {
+    max-width: 860px;
+    margin: 0 auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--blue);
+    position: relative;
+    min-height: 220px;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: var(--shadow);
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, rgba(15,22,40,0.88) 0%, rgba(15,22,40,0.70) 50%, rgba(15,22,40,0.30) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .header-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center top;
+    z-index: 0;
+  }
   .header-content {
-    padding: 30px 24px;
+    position: relative; z-index: 2;
+    padding: 44px;
+    max-width: 640px;
   }
-
-  .card-body {
-    padding: 24px;
-  }
-
+  .logo { display: flex; align-items: center; gap: 0; margin-bottom: 24px; }
+  .logo svg { height: 52px; width: auto; }
   .header h1 {
-    font-size: 28px;
+    font-size: clamp(22px, 3.5vw, 36px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 8px;
   }
-}
+  .header-sub {
+    font-size: 14px; font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .header p {
+    color: rgba(255,255,255,0.75);
+    font-size: 14px;
+    line-height: 1.65;
+    font-weight: 400;
+    max-width: 480px;
+  }
+  @media(max-width:600px){
+    .header-content { padding: 28px 24px; }
+    .header h1 { font-size: 22px; }
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 28px 20px 72px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 28px;
+    border: 1px solid var(--grey-mid);
+  }
+  .card-header {
+    background: var(--blue);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .card-header-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+  .card-header h2 { font-size: 15px; font-weight: 700; color: white; letter-spacing: 0.3px; }
+  .card-body { padding: 32px; }
+  @media(max-width:600px){ .card-body { padding: 20px; } }
+
+  /* ── FORM ── */
+  .form-grid { display: grid; gap: 18px; }
+  @media(min-width:580px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--blue); }
+  .form-group label span { color: var(--teal); }
+  .form-group input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--grey-mid);
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13.5px; font-weight: 500;
+    color: var(--text);
+    background: var(--off-white);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  .form-group input:focus { border-color: var(--teal); background: white; }
+  .form-group input.error { border-color: var(--fail); }
+  .form-group select {
+    padding: 12px 14px;
+    border: 1.5px solid var(--grey-mid);
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13.5px; font-weight: 500;
+    color: var(--text);
+    background: var(--off-white);
+    transition: border-color 0.15s;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7e7c' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+  }
+  .form-group select:focus { border-color: var(--teal); background-color: white; }
+  .form-group select.error { border-color: var(--fail); }
+
+  /* ── SUBSCRIBE CHECKBOX ── */
+  .subscribe-check {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-top: 22px; cursor: pointer; user-select: none;
+  }
+  .subscribe-check input[type="checkbox"] { display: none; }
+  .subscribe-box {
+    flex-shrink: 0; width: 20px; height: 20px;
+    border: 2px solid var(--grey-mid); border-radius: 4px;
+    background: var(--off-white);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s ease; margin-top: 1px;
+  }
+  .subscribe-box svg { width: 12px; height: 10px; opacity: 0; transition: opacity 0.15s; }
+  .subscribe-check input:checked + .subscribe-box { background: var(--teal); border-color: var(--teal); }
+  .subscribe-check input:checked + .subscribe-box svg { opacity: 1; }
+  .subscribe-check:hover .subscribe-box { border-color: var(--teal); }
+  .subscribe-text { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.5; }
+  .subscribe-sub { display: block; font-size: 11px; font-weight: 400; color: var(--grey-text); margin-top: 3px; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px; margin-top: 8px;
+  }
+  .section-label-bar { width: 4px; height: 24px; background: var(--teal); border-radius: 2px; }
+  .section-label h3 { font-size: 17px; font-weight: 800; color: var(--blue); }
+  .section-label p { font-size: 12px; color: var(--grey-text); margin-top: 2px; }
+
+  /* ── ALERT ── */
+  .alert {
+    padding: 12px 16px; border-radius: 6px;
+    font-size: 12.5px; font-weight: 600;
+    margin-bottom: 16px; display: none;
+  }
+  .alert-warn { background: #fef9c3; border: 1px solid #fbbf24; color: #854d0e; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex; align-items:center; gap: 9px;
+    padding: 14px 32px;
+    border: none; border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: all 0.18s;
+    letter-spacing: 0.3px;
+  }
+  .btn svg { width: 16px; height: 16px; fill: currentColor; }
+  .btn-teal { background: var(--teal); color: white; box-shadow: 0 4px 14px rgba(73,197,177,0.35); }
+  .btn-teal:hover { background: var(--teal-80); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(73,197,177,0.4); }
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+
+  .hidden { display: none !important; }
+
+  /* ── CERTIFICATE ── */
+  #cert-wrapper { display: none; }
+
+  .cert-outer {
+    background: var(--teal);
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 8px 40px rgba(31,42,68,0.22);
+    position: relative;
+    overflow: hidden;
+  }
+  .cert-outer::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.07) 20px, rgba(255,255,255,0.07) 21px),
+      repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,0.07) 20px, rgba(255,255,255,0.07) 21px);
+    pointer-events: none;
+  }
+  .cert-inner {
+    background: white;
+    border-radius: 8px;
+    padding: 48px 52px 40px;
+    position: relative; z-index: 1;
+  }
+  @media(max-width:600px){ .cert-inner { padding: 32px 24px 28px; } }
+
+  .cert-logo-area { margin-bottom: 36px; }
+  .cert-logo-svg { height: 48px; width: auto; }
+
+  .cert-name-line {
+    font-size: clamp(20px, 3.2vw, 26px); font-weight: 800;
+    color: var(--blue); margin-bottom: 10px;
+  }
+  .cert-subtitle {
+    font-size: 14px; font-weight: 400; color: var(--text);
+    line-height: 1.6; margin-bottom: 6px;
+  }
+  .cert-course {
+    font-size: clamp(16px, 2.5vw, 20px); font-weight: 800;
+    color: var(--blue); margin-bottom: 0;
+  }
+  .cert-course-list {
+    margin-top: 10px;
+    padding-left: 0;
+    list-style: none;
+  }
+  .cert-course-list li {
+    font-size: clamp(14px, 2vw, 17px); font-weight: 700;
+    color: var(--teal);
+    padding: 6px 0 6px 18px;
+    position: relative;
+  }
+  .cert-course-list li::before {
+    content: '—';
+    position: absolute; left: 0;
+    color: var(--teal);
+    font-weight: 400;
+  }
+
+  .cert-spacer { height: 48px; }
+
+  .cert-footer {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 24px; flex-wrap: wrap;
+  }
+  .cert-sig-block { display: flex; flex-direction: column; gap: 4px; }
+  .cert-sig-svg { width: 120px; height: 52px; margin-bottom: 4px; }
+  .cert-sig-name { font-size: 12px; color: #666; font-weight: 400; }
+  .cert-sig-role { font-size: 12px; color: #666; font-weight: 400; }
+  .cert-date-block { display: flex; flex-direction: column; gap: 4px; }
+  .cert-date-label { font-size: 12px; color: #666; font-weight: 400; }
+  .cert-date-val { font-size: 15px; font-weight: 700; color: var(--blue); }
+  @media(max-width:580px){ .cert-footer { flex-direction: column; align-items: flex-start; } }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div class="header-band">
-  <div class="header">
-    <div class="header-bg"></div>
-
-    <div class="header-content">
-      <div class="logo">
-        <h2>TEAL <span>PRODUCTS</span></h2>
-      </div>
-
-      <h1>Smoke Control Panel (SCP)</h1>
-
-      <div class="header-subtitle">
-        Product Registration & Project Information
-      </div>
-
-      <p>
-        Please complete the form below with your project and contact information.
-        Once submitted, your details will be reviewed by the Teal Products team.
-      </p>
+<div class="header">
+  <div class="header-bg" id="header-bg"></div>
+  <div class="header-content">
+    <div class="logo">
+      <svg viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="4" width="38" height="9" rx="2" fill="#49C5B1"/>
+        <rect x="0" y="17" width="29" height="9" rx="2" fill="#49C5B1"/>
+        <rect x="0" y="30" width="38" height="9" rx="2" fill="#49C5B1"/>
+        <rect x="44" y="2" width="6" height="40" rx="2" fill="#1F2A44"/>
+        <rect x="44" y="2" width="20" height="6" rx="2" fill="#1F2A44"/>
+        <rect x="44" y="36" width="20" height="6" rx="2" fill="#1F2A44"/>
+        <text x="74" y="25" font-family="Montserrat,Arial,sans-serif" font-weight="700" font-size="20" fill="#1F2A44">teal</text>
+        <text x="74" y="41" font-family="Montserrat,Arial,sans-serif" font-weight="400" font-size="14" fill="#1F2A44">products</text>
+      </svg>
     </div>
+    <h1>SCP Single Zone</h1>
+    <div class="header-sub">Teal Products Training</div>
+    <p>Please fill in your details to receive your certificate.</p>
   </div>
 </div>
+</div>
 
-<!-- MAIN CONTENT -->
 <div class="container">
 
-  <div class="card">
-
-    <div class="card-header">
-      <div class="card-header-dot"></div>
-      <h2>SCP REGISTRATION FORM</h2>
-    </div>
-
-    <div class="card-body">
-
-      <div class="section-label">
-        <div class="section-label-bar"></div>
-        <div>
-          <h3>Delegate & Project Information</h3>
-          <p>Please complete all required fields below before generating your SCP certificate.</p>
-        </div>
+  <!-- DETAILS FORM -->
+  <div id="details-section">
+    <div class="section-label">
+      <div class="section-label-bar"></div>
+      <div>
+        <h3>Your Details</h3>
+        <p>Please fill in your details to receive your certificate.</p>
       </div>
-
-      <form id="scp-form">
-
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-dot"></div>
+        <h2>Participant Information</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--grey-text);margin-bottom:22px;">These details will appear on your certificate. All fields are required.</p>
         <div class="form-grid">
-
           <div class="form-group">
             <label>First Name <span>*</span></label>
-            <input type="text" id="first-name" placeholder="Enter first name" required>
+            <input type="text" id="d-firstname" placeholder="Jane">
           </div>
-
           <div class="form-group">
             <label>Last Name <span>*</span></label>
-            <input type="text" id="last-name" placeholder="Enter last name" required>
+            <input type="text" id="d-lastname" placeholder="Smith">
           </div>
-
-          <div class="form-group">
-            <label>Email Address <span>*</span></label>
-            <input type="email" id="email" placeholder="Enter email address" required>
-          </div>
-
           <div class="form-group">
             <label>Company Name <span>*</span></label>
-            <input type="text" id="company" placeholder="Enter company name" required>
+            <input type="text" id="d-company" placeholder="Acme Ltd">
           </div>
-
           <div class="form-group">
-            <label>Job Title</label>
-            <input type="text" id="job-title" placeholder="Enter job title">
+            <label>Email Address <span>*</span></label>
+            <input type="email" id="d-email" placeholder="jane@acme.com">
           </div>
-
           <div class="form-group">
-            <label>Project Location</label>
-            <input type="text" id="project-location" placeholder="Enter project location">
+            <label>Job Title <span>*</span></label>
+            <input type="text" id="d-jobtitle" placeholder="Fire Safety Engineer">
           </div>
-
-          <div class="form-group full">
-            <label>Additional Notes</label>
-            <textarea id="additional-notes" placeholder="Add any further project or technical information..."></textarea>
+          <div class="form-group">
+            <label>Industry <span>*</span></label>
+            <select id="d-industry">
+              <option value="">— Please choose an option —</option>
+              <option>BMS Company</option>
+              <option>Builders Merchant</option>
+              <option>Building Owner</option>
+              <option>Electrical Contractor</option>
+              <option>Electrical Wholesaler</option>
+              <option>Engineer</option>
+              <option>Fire Alarm Wholesaler/Distributor</option>
+              <option>Fire and Security Alarm Contractor</option>
+              <option>Main/Mechanical Contractor</option>
+              <option>Maintenance or FM Company</option>
+              <option>Original Equipment Manufacturer</option>
+              <option>Private Purchaser</option>
+              <option>Rooflight Manufacturer</option>
+              <option>Smoke Vent Specialist</option>
+              <option>Specialist Contractor (Window Automation)</option>
+              <option>Specifier (Architects/Design Team)</option>
+              <option>Window Hardware Supplier</option>
+              <option>Window Manufacturer</option>
+              <option>Other</option>
+            </select>
           </div>
-
         </div>
 
-        <label class="subscribe-check">
-          <input type="checkbox">
-          <div class="subscribe-text">
-            I would like to receive product updates, technical bulletins and marketing communications from Teal Products.
-            <span class="subscribe-sub">
-              You can unsubscribe at any time.
-            </span>
-          </div>
+        <label class="subscribe-check" for="d-subscribe">
+          <input type="checkbox" id="d-subscribe">
+          <span class="subscribe-box">
+            <svg viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="subscribe-text">
+            I'd like to receive news, product updates and training invitations from Teal Products by email.
+            <span class="subscribe-sub">You can unsubscribe at any time.</span>
+          </span>
         </label>
 
+        <div class="alert alert-warn" id="form-error"></div>
+
         <div class="btn-row">
-          <button type="submit" class="btn btn-teal">Submit Details</button>
-          <button type="reset" class="btn btn-outline">Reset Form</button>
+          <button class="btn btn-teal" onclick="generateCertificate()">
+            <svg viewBox="0 0 24 24"><path d="M12 1l2.753 8.472H23l-7.18 5.23 2.753 8.47L12 18.944 5.427 23.172l2.753-8.47L1 9.472h8.247z"/></svg>
+            Get My Certificate
+          </button>
         </div>
-
-        <div class="footer-note">
-          By submitting this form, you confirm that the information provided is accurate and may be used for project and technical support purposes.
-        </div>
-
-      </form>
-
+      </div>
     </div>
   </div>
-</div>
 
-<div id="cert-wrapper" style="display:none; margin-top:32px;">
-
-  <div class="card">
-    <div class="card-header">
-      <div class="card-header-dot"></div>
-      <h2>SCP CERTIFICATE</h2>
+  <!-- CERTIFICATE -->
+  <div id="cert-wrapper">
+    <div class="section-label">
+      <div class="section-label-bar"></div>
+      <div>
+        <h3>Certificate of Completion</h3>
+        <p>Your certificate is ready to download.</p>
+      </div>
     </div>
-
-    <div class="card-body" style="text-align:center;">
-
-      <div id="certificate" style="background:#49C5B1; padding:32px; border-radius:12px;">
-
-        <div style="background:white; border-radius:8px; padding:60px 50px; text-align:left; min-height:420px; position:relative;">
-
-          <div style="margin-bottom:50px;">
-            <h2 style="font-size:32px; color:#1F2A44; font-weight:800; margin-bottom:8px;">
-              TEAL PRODUCTS
-            </h2>
-            <p style="color:#49C5B1; font-weight:700; letter-spacing:1px;">
-              SMOKE CONTROL PANEL (SCP)
-            </p>
-          </div>
-
-          <div style="margin-bottom:40px;">
-            <p style="font-size:15px; color:#6b7e7c; margin-bottom:14px;">
-              This certificate confirms that
-            </p>
-
-            <h1 id="cert-name" style="font-size:36px; color:#1F2A44; font-weight:800; margin-bottom:18px;">
-              John Smith
-            </h1>
-
-            <p style="font-size:16px; color:#444; line-height:1.7; max-width:640px;">
-              has successfully completed the Smoke Control Panel registration and information submission process with Teal Products.
-            </p>
-          </div>
-
-          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:80px; gap:20px; flex-wrap:wrap;">
-
-            <div>
-              <div style="font-size:15px; font-weight:700; color:#1F2A44; margin-bottom:6px;">
-                Teal Products
-              </div>
-              <div style="font-size:13px; color:#6b7e7c;">
-                Smoke Ventilation Division
-              </div>
-            </div>
-
-            <div>
-              <div style="font-size:12px; color:#6b7e7c; margin-bottom:4px;">
-                Date Issued
-              </div>
-              <div id="cert-date" style="font-size:16px; font-weight:700; color:#1F2A44;">
-                01 January 2026
-              </div>
-            </div>
-
-          </div>
-
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-dot"></div>
+        <h2>Teal Products — Training Certificate</h2>
+      </div>
+      <div class="card-body">
+        <div id="certificate"></div>
+        <div class="btn-row" style="justify-content:center; margin-top:28px;">
+          <button class="btn btn-teal" onclick="downloadCertPDF()">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            Download Certificate PDF
+          </button>
         </div>
-
       </div>
-
-      <div class="btn-row" style="justify-content:center; margin-top:24px;">
-        <button id="download-cert" class="btn btn-teal" type="button">
-          Download Certificate
-        </button>
-      </div>
-
     </div>
   </div>
-</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</div><!-- /container -->
 
 <script>
-const form = document.getElementById('scp-form');
-const certWrapper = document.getElementById('cert-wrapper');
-const certName = document.getElementById('cert-name');
-const certDate = document.getElementById('cert-date');
-const downloadBtn = document.getElementById('download-cert');
+function generateCertificate() {
+  const firstname = document.getElementById('d-firstname').value.trim();
+  const lastname  = document.getElementById('d-lastname').value.trim();
+  const company   = document.getElementById('d-company').value.trim();
+  const email     = document.getElementById('d-email').value.trim();
+  const jobtitle  = document.getElementById('d-jobtitle').value.trim();
+  const industry  = document.getElementById('d-industry').value;
 
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
+  let valid = true;
+  const errorEl = document.getElementById('form-error');
 
-  const firstName = document.getElementById('first-name').value;
-  const lastName = document.getElementById('last-name').value;
-
-  certName.textContent = `${firstName} ${lastName}`;
-
-  const today = new Date();
-  certDate.textContent = today.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
+  [['d-firstname',firstname],['d-lastname',lastname],['d-company',company],
+   ['d-email',email],['d-jobtitle',jobtitle]].forEach(([id,v])=>{
+    const el = document.getElementById(id);
+    if(!v){ el.classList.add('error'); valid=false; } else el.classList.remove('error');
   });
+  if(!industry){
+    document.getElementById('d-industry').classList.add('error'); valid=false;
+  } else {
+    document.getElementById('d-industry').classList.remove('error');
+  }
+  if(!valid){
+    errorEl.style.display='block';
+    errorEl.textContent='⚠ Please complete all required fields before continuing.';
+    return;
+  }
+  errorEl.style.display='none';
 
-  certWrapper.style.display = 'block';
+  const name = `${firstname} ${lastname}`;
+  const date = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
 
-  certWrapper.scrollIntoView({
-    behavior: 'smooth'
-  });
-});
+  // Hide form, show certificate
+  document.getElementById('details-section').classList.add('hidden');
+  document.getElementById('cert-wrapper').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
 
-downloadBtn.addEventListener('click', async () => {
+  document.getElementById('certificate').innerHTML = buildCertHTML(name, company, date);
 
-  const certificate = document.getElementById('certificate');
+  // Store for PDF
+  window._certData = { name, company, date };
+}
 
-  const canvas = await html2canvas(certificate, {
-    scale: 2,
-    useCORS: true
-  });
+function buildCertHTML(name, company, date) {
+  return `
+  <div class="cert-outer">
+    <div class="cert-inner">
 
-  const imgData = canvas.toDataURL('image/png');
+      <!-- Teal Products Logo -->
+      <div class="cert-logo-area">
+        <img src="data:image/jpeg;base64,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" alt="Teal Products" style="height:56px;width:auto;">
+      </div>
 
+      <div class="cert-name-line">${name} of ${company}</div>
+
+      <div class="cert-subtitle">Has successfully completed the Teal Products training program on the following control systems:</div>
+
+      <ul class="cert-course-list">
+        <li>SCP Single Zone</li>
+      </ul>
+
+      <div class="cert-spacer"></div>
+
+      <div class="cert-footer">
+        <div class="cert-sig-block">
+          <img src="data:image/jpeg;base64,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" alt="Signature" style="height:64px;width:auto;margin-bottom:6px;">
+          <div class="cert-sig-name">Sam Yiend</div>
+          <div class="cert-sig-role">Managing Director</div>
+        </div>
+        <div class="cert-date-block">
+          <div class="cert-date-label">Issue Date:</div>
+          <div class="cert-date-val">${date}</div>
+        </div>
+      </div>
+
+    </div>
+  </div>`;
+}
+
+function downloadCertPDF() {
   const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+  const W=297, H=210;
+  const { name, company, date } = window._certData;
 
-  const pdf = new jsPDF({
-    orientation: 'landscape',
-    unit: 'px',
-    format: [canvas.width, canvas.height]
-  });
+  // Teal outer background
+  doc.setFillColor(73,197,177);
+  doc.rect(0,0,W,H,'F');
 
-  pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-  pdf.save('SCP-Certificate.pdf');
-});
+  // Grid lines
+  doc.setDrawColor(255,255,255);
+  doc.setLineWidth(0.15);
+  doc.setGState(doc.GState({opacity: 0.12}));
+  for(let x=0;x<=W;x+=20){ doc.line(x,0,x,H); }
+  for(let y=0;y<=H;y+=20){ doc.line(0,y,W,y); }
+  doc.setGState(doc.GState({opacity: 1.0}));
+
+  // White inner card
+  const pad = 22;
+  doc.setFillColor(255,255,255);
+  doc.roundedRect(pad, pad, W-pad*2, H-pad*2, 6, 6, 'F');
+
+  const cx = pad + 24;
+  let cy = pad + 22;
+
+  // Teal Products Logo (drawn)
+  doc.setFillColor(73,197,177);
+  doc.roundedRect(cx, cy, 22, 5, 1, 1, 'F');
+  doc.roundedRect(cx, cy+7, 17, 5, 1, 1, 'F');
+  doc.roundedRect(cx, cy+14, 22, 5, 1, 1, 'F');
+  doc.setFillColor(31,42,68);
+  doc.roundedRect(cx+26, cy-2, 3.5, 25, 1, 1, 'F');
+  doc.roundedRect(cx+26, cy-2, 12, 3.5, 1, 1, 'F');
+  doc.roundedRect(cx+26, cy+19.5, 12, 3.5, 1, 1, 'F');
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(13);
+  doc.setTextColor(31,42,68);
+  doc.text('teal', cx+44, cy+12);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(10);
+  doc.text('products', cx+44, cy+20);
+
+  cy += 40;
+
+  // Name & company
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(18);
+  doc.setTextColor(31,42,68);
+  doc.text(`${name} of ${company}`, cx, cy);
+  cy += 12;
+
+  // Body text
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(11);
+  doc.setTextColor(50,60,70);
+  doc.text('Has successfully completed the Teal Products training program on the following control systems:', cx, cy);
+  cy += 12;
+
+  // Course line
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(14);
+  doc.setTextColor(73,197,177);
+  doc.text('SCP Single Zone', cx + 6, cy);
+
+  // Footer
+  const footerY = H - pad - 28;
+
+  // Signature curve
+  doc.setDrawColor(30,30,30);
+  doc.setLineWidth(0.8);
+  doc.lines([[6,-12],[6,8],[4,10],[4,-6],[6,-14],[6,8],[10,10],[12,-4],[10,-8],[8,4],[4,10]], cx, footerY-18, [1,1], 'S');
+
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.setTextColor(100,100,100);
+  doc.text('Sam Yiend', cx, footerY+6);
+  doc.text('Managing Director', cx, footerY+12);
+
+  // Date
+  const dateX = cx + 110;
+  doc.setFontSize(9);
+  doc.setTextColor(100,100,100);
+  doc.text('Issue Date:', dateX, footerY+6);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(11);
+  doc.setTextColor(31,42,68);
+  doc.text(date, dateX, footerY+14);
+
+  doc.save(`TealProducts_SCP_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
+}
 </script>
 
+<script>
+// Teal-toned header background gradient (replaces image if unavailable)
+(function(){
+  var bg = document.getElementById('header-bg');
+  if(bg) bg.style.background = 'linear-gradient(135deg, #1F2A44 0%, #2a4a4a 60%, #3a6a60 100%)';
+})();
+</script>
 </body>
 </html>
-```
-
-This version keeps the same overall visual styling and layout structure from the original CPD page, but removes only the quiz/review sections while retaining the certificate generation functionality. Users complete the landing form and can then generate/download a branded SCP completion certificate.
