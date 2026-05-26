@@ -216,9 +216,6 @@
   .btn svg { width: 16px; height: 16px; fill: currentColor; }
   .btn-teal { background: var(--teal); color: white; box-shadow: 0 4px 14px rgba(73,197,177,0.35); }
   .btn-teal:hover { background: var(--teal-80); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(73,197,177,0.4); }
-  .btn-linkedin { background: #0A66C2; color: white; box-shadow: 0 4px 14px rgba(10,102,194,0.35); }
-  .btn-linkedin:hover { background: #004182; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(10,102,194,0.4); }
-  .linkedin-toast { display:none; position:fixed; bottom:28px; left:50%; transform:translateX(-50%); background:#1d1d1d; color:white; padding:14px 22px; border-radius:8px; font-size:13px; font-weight:600; z-index:9999; text-align:center; max-width:400px; line-height:1.6; box-shadow:0 4px 20px rgba(0,0,0,0.3); }
   .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
 
   .hidden { display: none !important; }
@@ -273,14 +270,7 @@
   .cert-course-list li {
     font-size: clamp(14px, 2vw, 17px); font-weight: 700;
     color: var(--teal);
-    padding: 6px 0 6px 18px;
-    position: relative;
-  }
-  .cert-course-list li::before {
-    content: '—';
-    position: absolute; left: 0;
-    color: var(--teal);
-    font-weight: 400;
+    padding: 6px 0;
   }
 
   .cert-spacer { height: 48px; }
@@ -426,20 +416,12 @@
             <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
             Download Certificate PDF
           </button>
-          <button class="btn btn-linkedin" onclick="shareToLinkedIn()">
-            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            Share on LinkedIn
-          </button>
         </div>
       </div>
     </div>
   </div>
 
 </div><!-- /container -->
-
-<div class="linkedin-toast" id="linkedin-toast">
-  Your certificate image has downloaded — attach it to your LinkedIn post!
-</div>
 
 <script>
 
@@ -534,59 +516,6 @@ function buildCertHTML(name, company, date) {
   </div>`;
 }
 
-function shareToLinkedIn() {
-  const { name } = window._certData;
-  const certEl = document.querySelector('#certificate .cert-outer');
-  const btn = document.querySelector('.btn-linkedin');
-  const liSVG = `<svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
-  const postText = `I'm pleased to have completed the Smoke Control Principles (SCP) training with Teal Products and received my certificate of completion.\n\n#SmokeControl #FireSafety #TealProducts #CPD #Training`;
-  const fileName = `TealProducts_SCP_Certificate_${name.replace(/\s+/g,'_')}.png`;
-  const toast = document.getElementById('linkedin-toast');
-
-  btn.disabled = true;
-  btn.textContent = 'Preparing…';
-
-  html2canvas(certEl, {
-    scale: 3, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false
-  }).then(function(canvas) {
-    canvas.toBlob(function(blob) {
-      const file = new File([blob], fileName, { type: 'image/png' });
-
-      // Web Share API — opens native share sheet (mobile + Chrome/Edge on Windows)
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({
-          files: [file],
-          title: 'SCP Training Certificate — Teal Products',
-          text: postText
-        }).catch(function(err) {
-          if (err.name !== 'AbortError') fallback(blob);
-        }).finally(function() {
-          btn.disabled = false;
-          btn.innerHTML = `${liSVG} Share on LinkedIn`;
-        });
-
-      } else {
-        fallback(blob);
-        btn.disabled = false;
-        btn.innerHTML = `${liSVG} Share on LinkedIn`;
-      }
-
-      function fallback(b) {
-        // Download the PNG then open LinkedIn post composer pre-filled
-        const link = document.createElement('a');
-        link.download = fileName;
-        link.href = URL.createObjectURL(b);
-        link.click();
-        URL.revokeObjectURL(link.href);
-        const encoded = encodeURIComponent(postText);
-        window.open(`https://www.linkedin.com/feed/?shareActive=true&text=${encoded}`, '_blank');
-        toast.textContent = 'Certificate downloaded — attach the image to your LinkedIn post!';
-        toast.style.display = 'block';
-        setTimeout(() => { toast.style.display = 'none'; }, 7000);
-      }
-    }, 'image/png');
-  });
-}
 
 function downloadCertPDF() {
   const { name } = window._certData;
