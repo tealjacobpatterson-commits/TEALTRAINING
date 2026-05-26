@@ -453,18 +453,54 @@ function generateCertificate() {
   }
   errorEl.style.display='none';
 
-  // Send form data to Zapier webhook (routes Mailchimp subscribe if checked)
-  const subscribe = document.getElementById('d-subscribe').checked;
+  // Send form data to Zapier webhook
+  const subscribe = document.getElementById('d-subscribe').checked ? 'yes' : 'no';
   fetch('https://hooks.zapier.com/hooks/catch/14481139/4oalx3f/', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
+    body: new URLSearchParams({
       firstname, lastname, company, email, jobtitle, industry,
       subscribe,
-      mailchimp_list_id: '1ec211b495',
+      course: 'Smoke Control Panel (SCP) Training Course',
       submitted_at: new Date().toISOString()
     })
   }).catch(() => {});
+
+  // Subscribe directly to Mailchimp if box is ticked
+  if (subscribe === 'yes') {
+    const mcIframe = document.createElement('iframe');
+    mcIframe.name = '__mcIframe';
+    mcIframe.style.cssText = 'display:none;position:absolute;';
+    document.body.appendChild(mcIframe);
+
+    const mcForm = document.createElement('form');
+    mcForm.action = 'https://tealproducts.us14.list-manage.com/subscribe/post?u=d48ac3158f6ebfb864ab5372f&id=1ec211b495&f_id=00adbce5f0';
+    mcForm.method = 'POST';
+    mcForm.target = '__mcIframe';
+    mcForm.style.display = 'none';
+
+    const mcFields = {
+      EMAIL: email,
+      FNAME: firstname,
+      LNAME: lastname,
+      COMPANY: company,
+      POSITION: jobtitle,
+      INDUSTRY: industry,
+      COURSE: 'Smoke Control Panel (SCP) Training Course',
+      MMERGE8: 'yes',
+      'b_d48ac3158f6ebfb864ab5372f_1ec211b495': ''
+    };
+
+    Object.entries(mcFields).forEach(([name, value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value;
+      mcForm.appendChild(input);
+    });
+
+    document.body.appendChild(mcForm);
+    mcForm.submit();
+  }
 
   const name = `${firstname} ${lastname}`;
   const date = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
