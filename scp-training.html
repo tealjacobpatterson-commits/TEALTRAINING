@@ -578,7 +578,16 @@ function downloadCertPDF() {
       const imgData = canvas.toDataURL('image/jpeg', 1.0);
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-      doc.addImage(imgData, 'JPEG', 0, 0, 297, 210);
+
+      // Fit image to A4 landscape maintaining aspect ratio
+      const pageW = 297, pageH = 210;
+      const ratio = Math.min(pageW / canvas.width, pageH / canvas.height);
+      const imgW = canvas.width * ratio;
+      const imgH = canvas.height * ratio;
+      const imgX = (pageW - imgW) / 2;
+      const imgY = (pageH - imgH) / 2;
+
+      doc.addImage(imgData, 'JPEG', imgX, imgY, imgW, imgH);
       doc.save(`TealProducts_SCP_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
     }).catch(function(err) {
       certEl.style.width = origWidth;
