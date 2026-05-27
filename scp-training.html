@@ -578,7 +578,7 @@ function downloadCertPDF() {
   if (cn) cn.style.fontSize = '26px';
 
   var cf = clone.querySelector('.cert-footer');
-  if (cf) { cf.style.flexDirection = 'row'; cf.style.alignItems = 'center'; cf.style.justifyContent = 'space-between'; }
+  if (cf) { cf.style.flexDirection = 'row'; cf.style.alignItems = 'flex-end'; cf.style.justifyContent = 'space-between'; }
 
   container.appendChild(clone);
   document.body.appendChild(container);
