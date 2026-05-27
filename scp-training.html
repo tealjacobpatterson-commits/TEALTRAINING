@@ -559,32 +559,36 @@ function downloadCertPDF() {
   const certEl = document.querySelector('#certificate .cert-outer');
   if (!certEl) { alert('Certificate not found.'); return; }
 
-  // Set width to desktop size so mobile viewports don't affect the render
-  const origWidth = certEl.style.width;
-  certEl.style.width = '1050px';
+  // Clone certificate into an isolated off-screen container so parent
+  // width constraints on mobile cannot affect the render size
+  const container = document.createElement('div');
+  container.style.cssText = 'position:fixed;top:0;left:-2000px;width:1050px;z-index:-1;';
+  const clone = certEl.cloneNode(true);
+  clone.style.width = '1050px';
+  container.appendChild(clone);
+  document.body.appendChild(container);
 
-  // Wait a tick for layout to reflow at the new width
   setTimeout(function() {
-    html2canvas(certEl, {
+    html2canvas(clone, {
       scale: 2,
       useCORS: true,
       allowTaint: true,
-      backgroundColor: '#ffffff',
+      backgroundColor: null,
       logging: false,
       windowWidth: 1200
     }).then(function(canvas) {
-      certEl.style.width = origWidth;
+      document.body.removeChild(container);
 
       const imgData = canvas.toDataURL('image/jpeg', 1.0);
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
 
-      // Fill page background with teal to match certificate outer frame
+      // Fill any gap with teal to match certificate outer frame
       const pageW = 297, pageH = 210;
       doc.setFillColor(73, 197, 177);
       doc.rect(0, 0, pageW, pageH, 'F');
 
-      // Scale to fill page width, centred vertically
+      // Scale to fill full page width, centre vertically
       const imgW = pageW;
       const imgH = (canvas.height / canvas.width) * pageW;
       const imgY = (pageH - imgH) / 2;
@@ -592,11 +596,11 @@ function downloadCertPDF() {
       doc.addImage(imgData, 'JPEG', 0, imgY, imgW, imgH);
       doc.save(`TealProducts_SCP_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
     }).catch(function(err) {
-      certEl.style.width = origWidth;
+      document.body.removeChild(container);
       console.error('Certificate capture failed:', err);
       alert('Could not generate PDF. Please try again.');
     });
-  }, 100);
+  }, 200);
 }
 
 </script>
