@@ -579,8 +579,12 @@ function downloadCertPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
 
-      // Scale to fill page width, centred vertically
+      // Fill page background with teal to match certificate outer frame
       const pageW = 297, pageH = 210;
+      doc.setFillColor(73, 197, 177);
+      doc.rect(0, 0, pageW, pageH, 'F');
+
+      // Scale to fill page width, centred vertically
       const imgW = pageW;
       const imgH = (canvas.height / canvas.width) * pageW;
       const imgY = (pageH - imgH) / 2;
