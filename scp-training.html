@@ -559,8 +559,9 @@ function downloadCertPDF() {
   const certEl = document.querySelector('#certificate .cert-outer');
   if (!certEl) { alert('Certificate not found.'); return; }
 
-  const A4_W = 1050;
-  const A4_H = Math.round(A4_W * 210 / 297); // 742px — exact A4 landscape at this width
+  // 860px = container max-width — matches the natural desktop render size
+  const A4_W = 860;
+  const A4_H = Math.round(A4_W * 210 / 297); // 608px — exact A4 landscape at this width
 
   // Off-screen isolated container — bypasses parent width constraints on mobile
   const container = document.createElement('div');
@@ -568,14 +569,25 @@ function downloadCertPDF() {
 
   const clone = certEl.cloneNode(true);
   clone.style.width = A4_W + 'px';
+
+  // Override mobile CSS breakpoints so the clone always renders at desktop proportions
+  var ci = clone.querySelector('.cert-inner');
+  if (ci) ci.style.padding = '48px 52px 40px';
+
+  var cn = clone.querySelector('.cert-name-line');
+  if (cn) cn.style.fontSize = '26px';
+
+  var cf = clone.querySelector('.cert-footer');
+  if (cf) { cf.style.flexDirection = 'row'; cf.style.alignItems = 'center'; cf.style.justifyContent = 'space-between'; }
+
   container.appendChild(clone);
   document.body.appendChild(container);
 
-  // Step 1: let the clone render at its natural height
+  // Step 1: let the clone render at its natural desktop height
   setTimeout(function() {
     var naturalH = clone.getBoundingClientRect().height;
 
-    // Step 2: if shorter than A4, extend the spacer by the exact deficit — no flexbox, no stretching
+    // Step 2: extend the spacer by the exact deficit so canvas = A4 proportions
     if (naturalH < A4_H) {
       var spacer = clone.querySelector('.cert-spacer');
       if (spacer) {
@@ -584,7 +596,7 @@ function downloadCertPDF() {
       }
     }
 
-    // Step 3: capture after spacer adjustment has reflowed
+    // Step 3: capture after reflow
     setTimeout(function() {
       html2canvas(clone, {
         scale: 2,
@@ -598,7 +610,7 @@ function downloadCertPDF() {
         const imgData = canvas.toDataURL('image/jpeg', 1.0);
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-        // Canvas is now exactly A4 proportions — fills page with zero distortion
+        // Canvas is exactly A4 proportions — fills page with zero distortion
         doc.addImage(imgData, 'JPEG', 0, 0, 297, 210);
         doc.save('TealProducts_SCP_Certificate_' + name.replace(/\s+/g,'_') + '.pdf');
       }).catch(function(err) {
