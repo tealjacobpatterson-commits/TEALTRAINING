@@ -559,55 +559,54 @@ function downloadCertPDF() {
   const certEl = document.querySelector('#certificate .cert-outer');
   if (!certEl) { alert('Certificate not found.'); return; }
 
-  // A4 landscape dimensions at our capture width — no stretching
   const A4_W = 1050;
-  const A4_H = Math.round(A4_W * 210 / 297); // 742px
+  const A4_H = Math.round(A4_W * 210 / 297); // 742px — exact A4 landscape at this width
 
-  // Isolated off-screen container bypasses parent width constraints on mobile
+  // Off-screen isolated container — bypasses parent width constraints on mobile
   const container = document.createElement('div');
   container.style.cssText = 'position:fixed;top:0;left:-2000px;width:' + A4_W + 'px;z-index:-1;';
 
   const clone = certEl.cloneNode(true);
-  // Lock clone to exact A4 proportions
-  clone.style.cssText = 'width:' + A4_W + 'px;height:' + A4_H + 'px;box-sizing:border-box;';
-
-  // Make cert-inner fill the available interior height (outer minus 28px padding each side)
-  const cloneInner = clone.querySelector('.cert-inner');
-  if (cloneInner) {
-    cloneInner.style.height = (A4_H - 56) + 'px'; // 742 - 56 = 686px
-    cloneInner.style.boxSizing = 'border-box';
-    cloneInner.style.display = 'flex';
-    cloneInner.style.flexDirection = 'column';
-  }
-  // Spacer grows to fill remaining space, keeping footer pinned to the bottom
-  const cloneSpacer = clone.querySelector('.cert-spacer');
-  if (cloneSpacer) cloneSpacer.style.flex = '1';
-
+  clone.style.width = A4_W + 'px';
   container.appendChild(clone);
   document.body.appendChild(container);
 
+  // Step 1: let the clone render at its natural height
   setTimeout(function() {
-    html2canvas(clone, {
-      scale: 2,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: '#49C5B1',
-      logging: false,
-      windowWidth: 1200
-    }).then(function(canvas) {
-      document.body.removeChild(container);
+    var naturalH = clone.getBoundingClientRect().height;
 
-      const imgData = canvas.toDataURL('image/jpeg', 1.0);
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-      // Canvas is exactly A4 proportions — fill page with zero distortion
-      doc.addImage(imgData, 'JPEG', 0, 0, 297, 210);
-      doc.save(`TealProducts_SCP_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
-    }).catch(function(err) {
-      document.body.removeChild(container);
-      console.error('Certificate capture failed:', err);
-      alert('Could not generate PDF. Please try again.');
-    });
+    // Step 2: if shorter than A4, extend the spacer by the exact deficit — no flexbox, no stretching
+    if (naturalH < A4_H) {
+      var spacer = clone.querySelector('.cert-spacer');
+      if (spacer) {
+        var currentH = spacer.getBoundingClientRect().height || 48;
+        spacer.style.height = (currentH + (A4_H - naturalH)) + 'px';
+      }
+    }
+
+    // Step 3: capture after spacer adjustment has reflowed
+    setTimeout(function() {
+      html2canvas(clone, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#49C5B1',
+        logging: false,
+        windowWidth: 1200
+      }).then(function(canvas) {
+        document.body.removeChild(container);
+        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        // Canvas is now exactly A4 proportions — fills page with zero distortion
+        doc.addImage(imgData, 'JPEG', 0, 0, 297, 210);
+        doc.save('TealProducts_SCP_Certificate_' + name.replace(/\s+/g,'_') + '.pdf');
+      }).catch(function(err) {
+        document.body.removeChild(container);
+        console.error('Certificate capture failed:', err);
+        alert('Could not generate PDF. Please try again.');
+      });
+    }, 150);
   }, 200);
 }
 
