@@ -559,12 +559,30 @@ function downloadCertPDF() {
   const certEl = document.querySelector('#certificate .cert-outer');
   if (!certEl) { alert('Certificate not found.'); return; }
 
-  // Clone certificate into an isolated off-screen container so parent
-  // width constraints on mobile cannot affect the render size
+  // A4 landscape dimensions at our capture width — no stretching
+  const A4_W = 1050;
+  const A4_H = Math.round(A4_W * 210 / 297); // 742px
+
+  // Isolated off-screen container bypasses parent width constraints on mobile
   const container = document.createElement('div');
-  container.style.cssText = 'position:fixed;top:0;left:-2000px;width:1050px;z-index:-1;';
+  container.style.cssText = 'position:fixed;top:0;left:-2000px;width:' + A4_W + 'px;z-index:-1;';
+
   const clone = certEl.cloneNode(true);
-  clone.style.width = '1050px';
+  // Lock clone to exact A4 proportions
+  clone.style.cssText = 'width:' + A4_W + 'px;height:' + A4_H + 'px;box-sizing:border-box;';
+
+  // Make cert-inner fill the available interior height (outer minus 28px padding each side)
+  const cloneInner = clone.querySelector('.cert-inner');
+  if (cloneInner) {
+    cloneInner.style.height = (A4_H - 56) + 'px'; // 742 - 56 = 686px
+    cloneInner.style.boxSizing = 'border-box';
+    cloneInner.style.display = 'flex';
+    cloneInner.style.flexDirection = 'column';
+  }
+  // Spacer grows to fill remaining space, keeping footer pinned to the bottom
+  const cloneSpacer = clone.querySelector('.cert-spacer');
+  if (cloneSpacer) cloneSpacer.style.flex = '1';
+
   container.appendChild(clone);
   document.body.appendChild(container);
 
@@ -573,7 +591,7 @@ function downloadCertPDF() {
       scale: 2,
       useCORS: true,
       allowTaint: true,
-      backgroundColor: null,
+      backgroundColor: '#49C5B1',
       logging: false,
       windowWidth: 1200
     }).then(function(canvas) {
@@ -582,18 +600,8 @@ function downloadCertPDF() {
       const imgData = canvas.toDataURL('image/jpeg', 1.0);
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-
-      // Fill any gap with teal to match certificate outer frame
-      const pageW = 297, pageH = 210;
-      doc.setFillColor(73, 197, 177);
-      doc.rect(0, 0, pageW, pageH, 'F');
-
-      // Scale to fill full page width, centre vertically
-      const imgW = pageW;
-      const imgH = (canvas.height / canvas.width) * pageW;
-      const imgY = (pageH - imgH) / 2;
-
-      doc.addImage(imgData, 'JPEG', 0, imgY, imgW, imgH);
+      // Canvas is exactly A4 proportions — fill page with zero distortion
+      doc.addImage(imgData, 'JPEG', 0, 0, 297, 210);
       doc.save(`TealProducts_SCP_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
     }).catch(function(err) {
       document.body.removeChild(container);
