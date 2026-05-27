@@ -554,26 +554,40 @@ function buildCertHTML(name, company, date) {
 
 
 function downloadCertPDF() {
-  const { name } = window._certData;
+  const { name, company, date } = window._certData;
+
   const certEl = document.querySelector('#certificate .cert-outer');
+  if (!certEl) { alert('Certificate not found.'); return; }
 
-  html2canvas(certEl, {
-    scale: 3,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: null,
-    logging: false
-  }).then(function(canvas) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-    const W = 297, H = 210;
+  // Force fixed width for consistent A4-landscape capture
+  const origWidth = certEl.style.width;
+  certEl.style.width = '1050px';
 
-    const imgData = canvas.toDataURL('image/png');
-    doc.addImage(imgData, 'PNG', 0, 0, W, H);
+  // Wait a tick for layout to reflow
+  setTimeout(function() {
+    html2canvas(certEl, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      windowWidth: 1200
+    }).then(function(canvas) {
+      certEl.style.width = origWidth;
 
-    doc.save(`TealProducts_SCP_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
-  });
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+      doc.addImage(imgData, 'JPEG', 0, 0, 297, 210);
+      doc.save(`TealProducts_SCP_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
+    }).catch(function(err) {
+      certEl.style.width = origWidth;
+      console.error('Certificate capture failed:', err);
+      alert('Could not generate PDF. Please try again.');
+    });
+  }, 100);
 }
+
 </script>
 
 
