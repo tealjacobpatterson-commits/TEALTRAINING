@@ -559,9 +559,13 @@ function downloadCertPDF() {
   const certEl = document.querySelector('#certificate .cert-outer');
   if (!certEl) { alert('Certificate not found.'); return; }
 
-  // Force fixed width for consistent A4-landscape capture
-  const origWidth = certEl.style.width;
-  certEl.style.width = '1050px';
+  // Force exact A4 landscape dimensions (1050 x 742px) before capture
+  const origWidth  = certEl.style.width;
+  const origHeight = certEl.style.height;
+  const origOverflow = certEl.style.overflow;
+  certEl.style.width    = '1050px';
+  certEl.style.height   = '742px';
+  certEl.style.overflow = 'hidden';
 
   // Wait a tick for layout to reflow
   setTimeout(function() {
@@ -571,26 +575,23 @@ function downloadCertPDF() {
       allowTaint: true,
       backgroundColor: '#ffffff',
       logging: false,
+      width: 1050,
+      height: 742,
       windowWidth: 1200
     }).then(function(canvas) {
-      certEl.style.width = origWidth;
+      certEl.style.width    = origWidth;
+      certEl.style.height   = origHeight;
+      certEl.style.overflow = origOverflow;
 
       const imgData = canvas.toDataURL('image/jpeg', 1.0);
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-
-      // Fit image to A4 landscape maintaining aspect ratio
-      const pageW = 297, pageH = 210;
-      const ratio = Math.min(pageW / canvas.width, pageH / canvas.height);
-      const imgW = canvas.width * ratio;
-      const imgH = canvas.height * ratio;
-      const imgX = (pageW - imgW) / 2;
-      const imgY = (pageH - imgH) / 2;
-
-      doc.addImage(imgData, 'JPEG', imgX, imgY, imgW, imgH);
+      doc.addImage(imgData, 'JPEG', 0, 0, 297, 210);
       doc.save(`TealProducts_SCP_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
     }).catch(function(err) {
-      certEl.style.width = origWidth;
+      certEl.style.width    = origWidth;
+      certEl.style.height   = origHeight;
+      certEl.style.overflow = origOverflow;
       console.error('Certificate capture failed:', err);
       alert('Could not generate PDF. Please try again.');
     });
