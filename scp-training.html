@@ -559,15 +559,11 @@ function downloadCertPDF() {
   const certEl = document.querySelector('#certificate .cert-outer');
   if (!certEl) { alert('Certificate not found.'); return; }
 
-  // Force exact A4 landscape dimensions (1050 x 742px) before capture
-  const origWidth  = certEl.style.width;
-  const origHeight = certEl.style.height;
-  const origOverflow = certEl.style.overflow;
-  certEl.style.width    = '1050px';
-  certEl.style.height   = '742px';
-  certEl.style.overflow = 'hidden';
+  // Set width to desktop size so mobile viewports don't affect the render
+  const origWidth = certEl.style.width;
+  certEl.style.width = '1050px';
 
-  // Wait a tick for layout to reflow
+  // Wait a tick for layout to reflow at the new width
   setTimeout(function() {
     html2canvas(certEl, {
       scale: 2,
@@ -575,23 +571,24 @@ function downloadCertPDF() {
       allowTaint: true,
       backgroundColor: '#ffffff',
       logging: false,
-      width: 1050,
-      height: 742,
       windowWidth: 1200
     }).then(function(canvas) {
-      certEl.style.width    = origWidth;
-      certEl.style.height   = origHeight;
-      certEl.style.overflow = origOverflow;
+      certEl.style.width = origWidth;
 
       const imgData = canvas.toDataURL('image/jpeg', 1.0);
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-      doc.addImage(imgData, 'JPEG', 0, 0, 297, 210);
+
+      // Scale to fill page width, centred vertically
+      const pageW = 297, pageH = 210;
+      const imgW = pageW;
+      const imgH = (canvas.height / canvas.width) * pageW;
+      const imgY = (pageH - imgH) / 2;
+
+      doc.addImage(imgData, 'JPEG', 0, imgY, imgW, imgH);
       doc.save(`TealProducts_SCP_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
     }).catch(function(err) {
-      certEl.style.width    = origWidth;
-      certEl.style.height   = origHeight;
-      certEl.style.overflow = origOverflow;
+      certEl.style.width = origWidth;
       console.error('Certificate capture failed:', err);
       alert('Could not generate PDF. Please try again.');
     });
