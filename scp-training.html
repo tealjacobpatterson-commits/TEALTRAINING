@@ -569,13 +569,21 @@ function downloadCertPDF() {
 
   const clone = certEl.cloneNode(true);
   clone.style.width = A4_W + 'px';
+  // Prevent mobile browsers auto-inflating font sizes
+  clone.style.webkitTextSizeAdjust = '100%';
+  clone.style.textSizeAdjust = '100%';
 
-  // Override mobile CSS breakpoints so the clone always renders at desktop proportions
+  // Override every vw-based / breakpoint-based style to match desktop values
   var ci = clone.querySelector('.cert-inner');
   if (ci) ci.style.padding = '48px 52px 40px';
 
   var cn = clone.querySelector('.cert-name-line');
   if (cn) cn.style.fontSize = '26px';
+
+  var cc = clone.querySelector('.cert-course');
+  if (cc) cc.style.fontSize = '20px';
+
+  clone.querySelectorAll('.cert-course-list li').forEach(function(el) { el.style.fontSize = '17px'; });
 
   var cf = clone.querySelector('.cert-footer');
   if (cf) { cf.style.flexDirection = 'row'; cf.style.alignItems = 'flex-end'; cf.style.justifyContent = 'space-between'; }
