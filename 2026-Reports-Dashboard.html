@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teal Products — 2026 Reports Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --teal:       #49C5B1;
+    --teal-80:    #6dd0bf;
+    --teal-60:    #91dbcf;
+    --teal-40:    #b6e8df;
+    --teal-20:    #daf3ef;
+    --blue:       #1F2A44;
+    --blue-mid:   #2a3a5c;
+    --white:      #ffffff;
+    --off-white:  #f4f8f7;
+    --grey-light: #edf1f0;
+    --grey-mid:   #c8d4d2;
+    --grey-text:  #6b7e7c;
+    --text:       #1a2b29;
+    --success:    #3ab572;
+    --fail:       #e05252;
+    --orange:     #f5a623;
+    --purple:     #7c5cbf;
+    --radius:     10px;
+    --shadow:     0 4px 20px rgba(31,42,68,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: var(--off-white); color: var(--text); min-height: 100vh; }
+
+  /* HEADER */
+  .header-band { background: var(--off-white); padding: 36px 20px 0; }
+  .header {
+    max-width: 1100px; margin: 0 auto;
+    border-radius: var(--radius); background: var(--blue);
+    position: relative; min-height: 160px;
+    display: flex; align-items: center;
+    box-shadow: var(--shadow); overflow: hidden; padding: 36px 48px;
+  }
+  .header-accent  { position:absolute; right:-60px; top:-60px; width:320px; height:320px; border-radius:50%; background:rgba(73,197,177,0.12); }
+  .header-accent2 { position:absolute; right:80px; bottom:-80px; width:200px; height:200px; border-radius:50%; background:rgba(73,197,177,0.07); }
+  .header-content { position:relative; z-index:2; }
+  .logo { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .logo-dot { width:13px; height:13px; border-radius:50%; background:var(--teal); }
+  .logo-text { font-size:16px; font-weight:800; color:var(--white); letter-spacing:0.5px; }
+  .header h1 { font-size:clamp(20px,3vw,32px); font-weight:800; color:white; line-height:1.2; margin-bottom:5px; }
+  .header-sub { font-size:12px; font-weight:600; color:var(--teal); }
+  .header-meta { margin-left:auto; position:relative; z-index:2; text-align:right; }
+  .header-meta p { color:rgba(255,255,255,0.5); font-size:12px; font-weight:500; }
+  .header-meta .val { color:white; font-weight:700; font-size:15px; margin-top:4px; }
+  .header-meta .badge { display:inline-block; background:var(--teal); color:var(--blue); font-size:10px; font-weight:700; padding:4px 12px; border-radius:20px; margin-top:8px; letter-spacing:0.5px; }
+
+  /* MONTH TABS */
+  .tabs-band { background: var(--off-white); padding: 0 20px; }
+  .tabs-inner { max-width:1100px; margin:0 auto; padding:20px 0 0; display:flex; gap:6px; flex-wrap:wrap; }
+  .tab {
+    padding: 9px 22px;
+    border-radius: 8px 8px 0 0;
+    font-family:'Montserrat',sans-serif;
+    font-size:12px; font-weight:700;
+    border: none; cursor:pointer;
+    background: var(--grey-light);
+    color: var(--grey-text);
+    transition: all 0.15s;
+    letter-spacing:0.3px;
+  }
+  .tab:hover { background: var(--teal-20); color: var(--blue); }
+  .tab.active { background: var(--blue); color: var(--teal); }
+  .tab.all-tab.active { background:var(--blue); color:var(--teal); }
+
+  /* CONTAINER */
+  .container { max-width:1100px; margin:0 auto; padding:24px 20px 72px; }
+
+  /* SECTION LABEL */
+  .section-label { display:flex; align-items:center; gap:10px; margin:32px 0 14px; }
+  .section-label .dot { width:9px; height:9px; border-radius:50%; background:var(--teal); flex-shrink:0; }
+  .section-label h2 { font-size:12px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:1px; }
+  .section-label .line { flex:1; height:1px; background:var(--grey-mid); }
+
+  /* KPI GRID */
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:4px; }
+  .kpi-card { background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:20px 22px; border:1px solid var(--grey-mid); border-top:3px solid var(--teal); }
+  .kpi-card.green { border-top-color:var(--success); }
+  .kpi-card.green .value { color:var(--success); }
+  .kpi-card.orange { border-top-color:var(--orange); }
+  .kpi-card.orange .value { color:var(--orange); }
+  .kpi-card .label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--grey-text); margin-bottom:8px; }
+  .kpi-card .value { font-size:26px; font-weight:800; color:var(--blue); line-height:1; }
+  .kpi-card .sub { font-size:11px; font-weight:500; color:var(--grey-text); margin-top:5px; }
+
+  /* CARD */
+  .card { background:white; border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; margin-bottom:18px; border:1px solid var(--grey-mid); }
+  .card-header { background:var(--blue); padding:13px 22px; display:flex; align-items:center; gap:11px; }
+  .card-header-dot { width:8px; height:8px; border-radius:50%; background:var(--teal); flex-shrink:0; }
+  .card-header h3 { font-size:12px; font-weight:700; color:white; letter-spacing:0.3px; }
+  .card-body { padding:24px; }
+  .card-body.pad-sm { padding:18px; }
+
+  /* GRID */
+  .charts-2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .charts-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; }
+  .charts-13 { display:grid; grid-template-columns:1fr 2fr; gap:18px; }
+  @media(max-width:800px) { .charts-2,.charts-3,.charts-13 { grid-template-columns:1fr; } }
+  .chart-wrap { position:relative; height:230px; }
+  .chart-wrap.tall { height:290px; }
+  .chart-wrap.xtall { height:370px; }
+
+  /* TABLE */
+  .tbl-wrap { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  thead tr { background:var(--grey-light); }
+  thead th { padding:9px 13px; text-align:left; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.7px; color:var(--blue); white-space:nowrap; }
+  tbody tr { border-bottom:1px solid var(--grey-light); transition:background 0.1s; }
+  tbody tr:hover { background:var(--off-white); }
+  tbody td { padding:9px 13px; color:var(--text); font-weight:500; }
+  .pill { display:inline-block; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; }
+  .pill-green { background:rgba(58,181,114,0.12); color:#2a9460; }
+  .pill-teal  { background:rgba(73,197,177,0.15); color:#2a9183; }
+  .pill-red   { background:rgba(224,82,82,0.12);  color:#c03d3d; }
+  .pill-grey  { background:var(--grey-light); color:var(--grey-text); }
+  .num { text-align:right; font-variant-numeric:tabular-nums; }
+
+  /* MONTH STAT GRID */
+  .stat-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; }
+  .stat-box { background:var(--off-white); border-radius:8px; padding:16px 18px; border:1px solid var(--grey-mid); text-align:center; }
+  .stat-box .s-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.7px; color:var(--grey-text); margin-bottom:6px; }
+  .stat-box .s-val { font-size:22px; font-weight:800; color:var(--blue); }
+  .stat-box .s-sub { font-size:10px; color:var(--grey-text); margin-top:3px; }
+
+  /* EMPTY */
+  .empty { text-align:center; padding:40px 20px; color:var(--grey-text); font-size:13px; font-weight:500; }
+
+  /* FOOTER */
+  .footer { text-align:center; padding:28px 0; font-size:11px; color:var(--grey-text); font-weight:500; }
+  .footer span { color:var(--teal); font-weight:700; }
+
+  /* VIEW TOGGLE */
+  .view { display:none; }
+  .view.active { display:block; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header-band">
+  <div class="header">
+    <div class="header-accent"></div>
+    <div class="header-accent2"></div>
+    <div class="header-content">
+      <div class="logo">
+        <div class="logo-dot"></div>
+        <div class="logo-text">TEAL PRODUCTS</div>
+      </div>
+      <h1>2026 Reports Dashboard</h1>
+      <div class="header-sub">Website · Email · LinkedIn</div>
+    </div>
+    <div class="header-meta">
+      <p>Data period</p>
+      <div class="val">Jan – May 2026</div>
+      <div class="badge">LIVE REPORT</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-band">
+  <div class="tabs-inner">
+    <button class="tab all-tab active" onclick="showTab('all')">Overview</button>
+    <button class="tab" onclick="showTab('jan')">January</button>
+    <button class="tab" onclick="showTab('feb')">February</button>
+    <button class="tab" onclick="showTab('mar')">March</button>
+    <button class="tab" onclick="showTab('apr')">April</button>
+    <button class="tab" onclick="showTab('may')">May</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!--  ALL / OVERVIEW VIEW                        -->
+<!-- ════════════════════════════════════════════ -->
+<div id="view-all" class="view active">
+<div class="container">
+
+  <div class="section-label" style="margin-top:8px;">
+    <div class="dot"></div><h2>Overview — Jan to May 2026</h2><div class="line"></div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="label">Website Users</div><div class="value">6,134</div><div class="sub">Jan – May 2026</div></div>
+    <div class="kpi-card"><div class="label">Sessions</div><div class="value">12,419</div><div class="sub">Jan – May 2026</div></div>
+    <div class="kpi-card"><div class="label">Impressions</div><div class="value">1.39M</div><div class="sub">Jan – May 2026</div></div>
+    <div class="kpi-card"><div class="label">Web Enquiries</div><div class="value">424</div><div class="sub">Jan – May 2026</div></div>
+    <div class="kpi-card green"><div class="label">Email Sales</div><div class="value">£33,097</div><div class="sub">Ex. VAT · 23 campaigns</div></div>
+    <div class="kpi-card"><div class="label">Emails Sent</div><div class="value">25,351</div><div class="sub">Across 23 campaigns</div></div>
+    <div class="kpi-card"><div class="label">LinkedIn Followers</div><div class="value">1,678</div><div class="sub">+145 since Jan</div></div>
+    <div class="kpi-card"><div class="label">LinkedIn Impressions</div><div class="value">46,647</div><div class="sub">Jan – May 2026</div></div>
+  </div>
+
+  <div class="section-label"><div class="dot"></div><h2>Website Analytics</h2><div class="line"></div></div>
+  <div class="charts-2">
+    <div class="card">
+      <div class="card-header"><div class="card-header-dot"></div><h3>Users &amp; Sessions — Monthly</h3></div>
+      <div class="card-body"><div class="chart-wrap"><canvas id="a-chartUS"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-header-dot"></div><h3>Bounce Rate &amp; Enquiries — Monthly</h3></div>
+      <div class="card-body"><div class="chart-wrap"><canvas id="a-chartBE"></canvas></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-header-dot"></div><h3>Traffic Acquisition by Channel — Monthly Sessions</h3></div>
+    <div class="card-body"><div class="chart-wrap tall"><canvas id="a-chartTA"></canvas></div></div>
+  </div>
+
+  <div class="section-label"><div class="dot"></div><h2>Email Campaigns</h2><div class="line"></div></div>
+  <div class="charts-2">
+    <div class="card">
+      <div class="card-header"><div class="card-header-dot"></div><h3>Open Rate by Campaign (%)</h3></div>
+      <div class="card-body pad-sm"><div class="chart-wrap xtall"><canvas id="a-chartOR"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-header-dot"></div><h3>Email Sales (£ ex. VAT)</h3></div>
+      <div class="card-body pad-sm"><div class="chart-wrap xtall"><canvas id="a-chartES"></canvas></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-header-dot"></div><h3>All Campaigns — Full Breakdown</h3></div>
+    <div class="card-body pad-sm">
+      <div class="tbl-wrap"><table>
+        <thead><tr>
+          <th>Subject Line</th><th>Date</th>
+          <th class="num">Sent</th><th class="num">Opened</th><th class="num">Open Rate</th>
+          <th class="num">Clicked</th><th class="num">CTR</th>
+          <th class="num">Enquiries</th><th class="num">Sales</th>
+          <th class="num">Bounces</th><th class="num">Unsubs</th>
+        </tr></thead>
+        <tbody id="a-emailTable"></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="section-label"><div class="dot"></div><h2>LinkedIn / Socials</h2><div class="line"></div></div>
+  <div class="card">
+    <div class="card-header"><div class="card-header-dot"></div><h3>Follower Growth — Monthly</h3></div>
+    <div class="card-body"><div class="chart-wrap tall"><canvas id="a-chartFL"></canvas></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-header-dot"></div><h3>Monthly Impressions</h3></div>
+    <div class="card-body"><div class="chart-wrap tall"><canvas id="a-chartLI"></canvas></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-header-dot"></div><h3>Reactions &amp; New Followers</h3></div>
+    <div class="card-body"><div class="chart-wrap tall"><canvas id="a-chartRX"></canvas></div></div>
+  </div>
+
+</div>
+</div><!-- /view-all -->
+
+<!-- ════════════════════════════════════════════ -->
+<!--  MONTHLY VIEWS (rendered by JS)             -->
+<!-- ════════════════════════════════════════════ -->
+<div id="view-jan" class="view"></div>
+<div id="view-feb" class="view"></div>
+<div id="view-mar" class="view"></div>
+<div id="view-apr" class="view"></div>
+<div id="view-may" class="view"></div>
+
+<div class="footer"><span>Teal Products</span> &nbsp;·&nbsp; 2026 Marketing Dashboard &nbsp;·&nbsp; Data: Jan – May 2026</div>
+
+<script>
+/* ════════════════════ DATA ════════════════════ */
+const MONTHS = ['Jan','Feb','Mar','Apr','May'];
+
+const website = {
+  users:       [1657,1028,1133,1094,1222],
+  sessions:    [2873,2168,2480,2321,2577],
+  impressions: [323217,264888,295447,227068,280930],
+  bounceRate:  [32.3,39.8,39.4,40.9,40.6],
+  enquiries:   [60,57,63,53,191],
+};
+
+const traffic = {
+  organic:  [1698,1601,1731,1704,1649],
+  direct:   [590, 472, 557, 465, 417],
+  referral: [490,  81, 101,  93, 117],
+  email:    [26,   28,  43,  34, 211],
+  social:   [35,   58,  35,  19,  48],
+  paid:     [0,     0,   0,   0,  99],
+};
+
+const linkedin = {
+  followers:    [1533,1551,1592,1616,1678],
+  impressions:  [9142,7706,6224,8954,14621],
+  reactions:    [285,193,196,336,248],
+  newFollowers: [16,18,40,24,62],
+};
+
+// monthIndex: 0=Jan,1=Feb,2=Mar,3=Apr,4=May (5=Jun, kept for reference)
+const emails = [
+  { subject:'Happy New Year - We Are Back',              date:'02 Jan', mi:0, sent:3975,  opened:676, clicked:42,  enquiries:0,  sales:0,       bounces:41, unsubs:34 },
+  { subject:'Searching for AOV Façade Windows/Louvres?', date:'13 Jan', mi:0, sent:1548,  opened:2,   clicked:20,  enquiries:1,  sales:0,       bounces:10, unsubs:3  },
+  { subject:'Looking Ahead Together in 2026',             date:'20 Jan', mi:0, sent:38,    opened:13,  clicked:0,   enquiries:0,  sales:0,       bounces:0,  unsubs:0  },
+  { subject:'Now Available: SV-R-RL5 Smoke Vent Hatch',  date:'28 Jan', mi:0, sent:1323,  opened:495, clicked:19,  enquiries:0,  sales:0,       bounces:11, unsubs:3  },
+  { subject:'Teal Products Training',                     date:'03 Feb', mi:1, sent:3241,  opened:444, clicked:41,  enquiries:7,  sales:1399.93, bounces:47, unsubs:27 },
+  { subject:'Flash Sale on Actuator & Manual Gear',       date:'10 Feb', mi:1, sent:66,    opened:16,  clicked:1,   enquiries:1,  sales:3697,    bounces:3,  unsubs:0  },
+  { subject:'Flash Sale on Vents & Controls',             date:'11 Feb', mi:1, sent:138,   opened:81,  clicked:6,   enquiries:4,  sales:10000,   bounces:8,  unsubs:1  },
+  { subject:'Legal Duties for Smoke Ventilation in HRBs', date:'24 Feb', mi:1, sent:949,   opened:188, clicked:15,  enquiries:0,  sales:0,       bounces:11, unsubs:1  },
+  { subject:'Fire Safety Event 2026',                     date:'13 Mar', mi:2, sent:897,   opened:166, clicked:9,   enquiries:0,  sales:0,       bounces:10, unsubs:2  },
+  { subject:'Partner News - FSE 2026',                    date:'20 Mar', mi:2, sent:82,    opened:34,  clicked:4,   enquiries:0,  sales:0,       bounces:1,  unsubs:0  },
+  { subject:'Holly 5% Price Rise',                        date:'31 Mar', mi:2, sent:557,   opened:336, clicked:199, enquiries:0,  sales:0,       bounces:11, unsubs:8  },
+  { subject:'5% Vents and Controls',                      date:'01 Apr', mi:3, sent:895,   opened:336, clicked:11,  enquiries:0,  sales:0,       bounces:11, unsubs:5  },
+  { subject:'Comfort Package',                            date:'08 Apr', mi:3, sent:521,   opened:171, clicked:12,  enquiries:0,  sales:0,       bounces:7,  unsubs:4  },
+  { subject:'Under 2 Weeks to FSE 2026',                  date:'15 Apr', mi:3, sent:869,   opened:342, clicked:82,  enquiries:0,  sales:0,       bounces:7,  unsubs:2  },
+  { subject:'Partner News - NEXUS',                       date:'21 Apr', mi:3, sent:65,    opened:21,  clicked:4,   enquiries:0,  sales:0,       bounces:0,  unsubs:0  },
+  { subject:'Tomorrow: Fire Safety Event',                date:'27 Apr', mi:3, sent:1102,  opened:199, clicked:10,  enquiries:0,  sales:0,       bounces:10, unsubs:3  },
+  { subject:'Button Smasher Day 1',                       date:'28 Apr', mi:3, sent:1275,  opened:214, clicked:11,  enquiries:0,  sales:0,       bounces:11, unsubs:1  },
+  { subject:'Thank You for Visiting Our FSE Stand',       date:'05 May', mi:4, sent:134,   opened:48,  clicked:7,   enquiries:0,  sales:0,       bounces:1,  unsubs:1  },
+  { subject:'CPD Partner Email',                          date:'21 May', mi:4, sent:65,    opened:20,  clicked:9,   enquiries:0,  sales:0,       bounces:0,  unsubs:0  },
+  { subject:'CPD All',                                    date:'21 May', mi:4, sent:4011,  opened:564, clicked:105, enquiries:0,  sales:0,       bounces:72, unsubs:21 },
+  { subject:'AOV Façade Vents (List 1)',                   date:'27 May', mi:4, sent:1575,  opened:269, clicked:24,  enquiries:2,  sales:18000,   bounces:13, unsubs:3  },
+  { subject:'AOV Façade Vents (List 2)',                   date:'27 May', mi:4, sent:145,   opened:33,  clicked:6,   enquiries:0,  sales:0,       bounces:2,  unsubs:0  },
+  { subject:'CPD Certificate Part 2',                     date:'02 Jun', mi:4, sent:3306,  opened:679, clicked:124, enquiries:0,  sales:0,       bounces:30, unsubs:16 },
+];
+
+/* ════════════════════ STYLE HELPERS ════════════════════ */
+const C = { teal:'#49C5B1', teal40:'#b6e8df', blue:'#1F2A44', green:'#3ab572', orange:'#f5a623', red:'#e05252', purple:'#7c5cbf', grey:'#c8d4d2' };
+const FONT = { family:'Montserrat', size:11 };
+Chart.defaults.font = FONT;
+Chart.defaults.color = '#6b7e7c';
+const TIP = { backgroundColor:'#1F2A44', titleColor:'#49C5B1', bodyColor:'#fff', borderColor:'#49C5B1', borderWidth:1, padding:10, titleFont:{family:'Montserrat',weight:'700',size:11}, bodyFont:{family:'Montserrat',size:11}, cornerRadius:6 };
+const GRID = (c='rgba(200,212,210,0.4)') => ({ color:c, drawBorder:false });
+
+/* ════════════════════ EMAIL TABLE ROW ════════════════════ */
+function emailRow(c) {
+  const or  = ((c.opened/c.sent)*100).toFixed(1);
+  const ctr = c.opened > 0 ? ((c.clicked/c.opened)*100).toFixed(1) : '—';
+  const orPill = or>=30?'pill-green':or>=15?'pill-teal':'pill-red';
+  return `<tr>
+    <td>${c.subject}</td><td>${c.date}</td>
+    <td class="num">${c.sent.toLocaleString()}</td>
+    <td class="num">${c.opened.toLocaleString()}</td>
+    <td class="num"><span class="pill ${orPill}">${or}%</span></td>
+    <td class="num">${c.clicked}</td>
+    <td class="num"><span class="pill pill-grey">${ctr==='—'?'—':ctr+'%'}</span></td>
+    <td class="num">${c.enquiries}</td>
+    <td class="num">${c.sales>0?'£'+Number(c.sales).toLocaleString():'—'}</td>
+    <td class="num">${c.bounces}</td>
+    <td class="num">${c.unsubs}</td>
+  </tr>`;
+}
+
+/* ════════════════════ OVERVIEW CHARTS ════════════════════ */
+function buildOverview() {
+  // Users & Sessions
+  new Chart(document.getElementById('a-chartUS'), {
+    type:'line',
+    data:{ labels:MONTHS, datasets:[
+      { label:'Users',    data:website.users,    borderColor:C.teal, backgroundColor:'rgba(73,197,177,0.1)', borderWidth:2.5, pointRadius:4, pointBackgroundColor:C.teal, fill:true, tension:0.35 },
+      { label:'Sessions', data:website.sessions, borderColor:C.blue, backgroundColor:'rgba(31,42,68,0.06)',  borderWidth:2.5, pointRadius:4, pointBackgroundColor:C.blue, fill:true, tension:0.35 },
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ labels:{font:FONT,usePointStyle:true,pointStyleWidth:8} }, tooltip:{mode:'index',intersect:false,...TIP} }, scales:{ x:{grid:GRID(),ticks:{font:FONT}}, y:{grid:GRID(),ticks:{font:FONT}} } }
+  });
+  // Bounce Rate & Enquiries
+  new Chart(document.getElementById('a-chartBE'), {
+    type:'line',
+    data:{ labels:MONTHS, datasets:[
+      { label:'Bounce Rate (%)', data:website.bounceRate, borderColor:C.red,   backgroundColor:'rgba(224,82,82,0.08)',  borderWidth:2.5, pointRadius:4, pointBackgroundColor:C.red,   fill:true, tension:0.35, yAxisID:'yL' },
+      { label:'Enquiries',       data:website.enquiries,  borderColor:C.green, backgroundColor:'rgba(58,181,114,0.1)',  borderWidth:2.5, pointRadius:4, pointBackgroundColor:C.green, fill:true, tension:0.35, yAxisID:'yR' },
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ labels:{font:FONT,usePointStyle:true,pointStyleWidth:8} }, tooltip:{mode:'index',intersect:false,...TIP} }, scales:{ x:{grid:GRID(),ticks:{font:FONT}}, yL:{type:'linear',position:'left',grid:GRID(),ticks:{font:FONT,callback:v=>v+'%'}}, yR:{type:'linear',position:'right',grid:{display:false},ticks:{font:FONT}} } }
+  });
+  // Traffic
+  new Chart(document.getElementById('a-chartTA'), {
+    type:'bar',
+    data:{ labels:MONTHS, datasets:[
+      { label:'Organic Search', data:traffic.organic,  backgroundColor:C.teal,   borderRadius:3 },
+      { label:'Direct',         data:traffic.direct,   backgroundColor:C.blue,   borderRadius:3 },
+      { label:'Referral',       data:traffic.referral, backgroundColor:C.green,  borderRadius:3 },
+      { label:'Email',          data:traffic.email,    backgroundColor:C.orange, borderRadius:3 },
+      { label:'Organic Social', data:traffic.social,   backgroundColor:C.purple, borderRadius:3 },
+      { label:'Paid Search',    data:traffic.paid,     backgroundColor:C.red,    borderRadius:3 },
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ labels:{font:FONT,usePointStyle:true,pointStyleWidth:8} }, tooltip:{mode:'index',intersect:false,...TIP} }, scales:{ x:{stacked:true,grid:GRID(),ticks:{font:FONT}}, y:{stacked:true,grid:GRID(),ticks:{font:FONT}} } }
+  });
+  // Open Rate
+  const ors = emails.map(c=>parseFloat(((c.opened/c.sent)*100).toFixed(1)));
+  const short = emails.map(c=>c.subject.length>28?c.subject.slice(0,28)+'…':c.subject);
+  new Chart(document.getElementById('a-chartOR'), {
+    type:'bar',
+    data:{ labels:short, datasets:[{ label:'Open Rate %', data:ors, backgroundColor:ors.map(r=>r>=30?'rgba(73,197,177,0.75)':r>=15?'rgba(31,42,68,0.65)':'rgba(224,82,82,0.6)'), borderRadius:3 }] },
+    options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{...TIP,callbacks:{label:ctx=>` ${ctx.parsed.x}%`}} }, scales:{ x:{grid:GRID(),ticks:{font:{family:'Montserrat',size:10},callback:v=>v+'%'}}, y:{grid:{display:false},ticks:{font:{family:'Montserrat',size:9}}} } }
+  });
+  // Email Sales
+  const se = emails.filter(c=>c.sales>0);
+  new Chart(document.getElementById('a-chartES'), {
+    type:'bar',
+    data:{ labels:se.map(c=>c.subject.length>30?c.subject.slice(0,30)+'…':c.subject), datasets:[{ label:'Sales (£)', data:se.map(c=>c.sales), backgroundColor:[C.teal,C.green,C.blue], borderRadius:5 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{...TIP,callbacks:{label:ctx=>` £${ctx.parsed.y.toLocaleString()}`}} }, scales:{ x:{grid:{display:false},ticks:{font:{family:'Montserrat',size:10}}}, y:{grid:GRID(),ticks:{font:{family:'Montserrat',size:10},callback:v=>'£'+v.toLocaleString()}} } }
+  });
+  // All email table
+  const tbody = document.getElementById('a-emailTable');
+  emails.forEach(c => { tbody.innerHTML += emailRow(c); });
+  // LinkedIn Followers
+  new Chart(document.getElementById('a-chartFL'), {
+    type:'line',
+    data:{ labels:MONTHS, datasets:[{ label:'Followers', data:linkedin.followers, borderColor:C.teal, backgroundColor:'rgba(73,197,177,0.12)', borderWidth:2.5, pointRadius:5, pointBackgroundColor:C.teal, fill:true, tension:0.35 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{...TIP} }, scales:{ x:{grid:GRID(),ticks:{font:FONT}}, y:{grid:GRID(),ticks:{font:FONT},min:1450} } }
+  });
+  // LinkedIn Impressions
+  new Chart(document.getElementById('a-chartLI'), {
+    type:'bar',
+    data:{ labels:MONTHS, datasets:[{ label:'Impressions', data:linkedin.impressions, backgroundColor:MONTHS.map((_,i)=>i===4?C.teal:'rgba(73,197,177,0.4)'), borderRadius:4 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{...TIP} }, scales:{ x:{grid:{display:false},ticks:{font:FONT}}, y:{grid:GRID(),ticks:{font:FONT}} } }
+  });
+  // LinkedIn Reactions
+  new Chart(document.getElementById('a-chartRX'), {
+    type:'bar',
+    data:{ labels:MONTHS, datasets:[
+      { label:'Reactions',     data:linkedin.reactions,    backgroundColor:C.blue,  borderRadius:3 },
+      { label:'New Followers', data:linkedin.newFollowers, backgroundColor:C.green, borderRadius:3 },
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ labels:{font:FONT,usePointStyle:true,pointStyleWidth:8} }, tooltip:{mode:'index',intersect:false,...TIP} }, scales:{ x:{grid:{display:false},ticks:{font:FONT}}, y:{grid:GRID(),ticks:{font:FONT}} } }
+  });
+}
+
+/* ════════════════════ MONTHLY VIEW BUILDER ════════════════════ */
+const monthMeta = [
+  { key:'jan', label:'January',  mi:0, color:'#49C5B1' },
+  { key:'feb', label:'February', mi:1, color:'#49C5B1' },
+  { key:'mar', label:'March',    mi:2, color:'#49C5B1' },
+  { key:'apr', label:'April',    mi:3, color:'#49C5B1' },
+  { key:'may', label:'May',      mi:4, color:'#49C5B1' },
+];
+const builtMonths = {};
+
+function buildMonth(meta) {
+  const { key, label, mi } = meta;
+  const el = document.getElementById('view-'+key);
+
+  const w = {
+    users:      website.users[mi],
+    sessions:   website.sessions[mi],
+    impressions:website.impressions[mi],
+    bounce:     website.bounceRate[mi],
+    enquiries:  website.enquiries[mi],
+  };
+  const li = {
+    followers:    linkedin.followers[mi],
+    impressions:  linkedin.impressions[mi],
+    reactions:    linkedin.reactions[mi],
+    newFollowers: linkedin.newFollowers[mi],
+  };
+  const monthEmails = emails.filter(e => e.mi === mi);
+  const totalSent    = monthEmails.reduce((a,c)=>a+c.sent,0);
+  const totalOpened  = monthEmails.reduce((a,c)=>a+c.opened,0);
+  const totalSales   = monthEmails.reduce((a,c)=>a+c.sales,0);
+  const totalEnq     = monthEmails.reduce((a,c)=>a+c.enquiries,0);
+  const avgOR        = totalSent>0 ? ((totalOpened/totalSent)*100).toFixed(1) : 0;
+
+  const tChans = {
+    'Organic Search': traffic.organic[mi],
+    'Direct':         traffic.direct[mi],
+    'Referral':       traffic.referral[mi],
+    'Email':          traffic.email[mi],
+    'Organic Social': traffic.social[mi],
+    'Paid Search':    traffic.paid[mi],
+  };
+
+  const uid = key+'-'+Date.now();
+
+  el.innerHTML = `
+  <div class="container">
+    <div class="section-label" style="margin-top:8px;">
+      <div class="dot"></div><h2>${label} 2026 — Website</h2><div class="line"></div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="label">Users</div><div class="value">${w.users.toLocaleString()}</div><div class="sub">${label} 2026</div></div>
+      <div class="kpi-card"><div class="label">Sessions</div><div class="value">${w.sessions.toLocaleString()}</div><div class="sub">${label} 2026</div></div>
+      <div class="kpi-card"><div class="label">Impressions</div><div class="value">${(w.impressions/1000).toFixed(0)}k</div><div class="sub">${label} 2026</div></div>
+      <div class="kpi-card"><div class="label">Bounce Rate</div><div class="value">${w.bounce}%</div><div class="sub">${label} 2026</div></div>
+      <div class="kpi-card green"><div class="label">Enquiries</div><div class="value">${w.enquiries}</div><div class="sub">${label} 2026</div></div>
+    </div>
+
+    <div class="charts-2" style="margin-top:16px;">
+      <div class="card">
+        <div class="card-header"><div class="card-header-dot"></div><h3>Traffic Acquisition — ${label}</h3></div>
+        <div class="card-body"><div class="chart-wrap"><canvas id="${uid}-traffic"></canvas></div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-dot"></div><h3>Monthly Trend — Users &amp; Sessions</h3></div>
+        <div class="card-body"><div class="chart-wrap"><canvas id="${uid}-trend"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="section-label"><div class="dot"></div><h2>${label} 2026 — Email</h2><div class="line"></div></div>
+    <div class="kpi-grid" style="margin-bottom:16px;">
+      <div class="kpi-card"><div class="label">Campaigns</div><div class="value">${monthEmails.length}</div><div class="sub">${label} 2026</div></div>
+      <div class="kpi-card"><div class="label">Emails Sent</div><div class="value">${totalSent.toLocaleString()}</div><div class="sub">${label} 2026</div></div>
+      <div class="kpi-card"><div class="label">Avg Open Rate</div><div class="value">${avgOR}%</div><div class="sub">${label} 2026</div></div>
+      <div class="kpi-card green"><div class="label">Email Sales</div><div class="value">${totalSales>0?'£'+totalSales.toLocaleString():'—'}</div><div class="sub">Ex. VAT</div></div>
+      <div class="kpi-card"><div class="label">Enquiries</div><div class="value">${totalEnq}</div><div class="sub">Via email</div></div>
+    </div>
+
+    ${monthEmails.length > 0 ? `
+    <div class="charts-2">
+      <div class="card">
+        <div class="card-header"><div class="card-header-dot"></div><h3>Open Rate by Campaign — ${label}</h3></div>
+        <div class="card-body pad-sm"><div class="chart-wrap tall"><canvas id="${uid}-or"></canvas></div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-dot"></div><h3>Emails Sent by Campaign — ${label}</h3></div>
+        <div class="card-body pad-sm"><div class="chart-wrap tall"><canvas id="${uid}-sent"></canvas></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-header-dot"></div><h3>${label} Campaigns — Full Breakdown</h3></div>
+      <div class="card-body pad-sm">
+        <div class="tbl-wrap"><table>
+          <thead><tr>
+            <th>Subject Line</th><th>Date</th>
+            <th class="num">Sent</th><th class="num">Opened</th><th class="num">Open Rate</th>
+            <th class="num">Clicked</th><th class="num">CTR</th>
+            <th class="num">Enquiries</th><th class="num">Sales</th>
+            <th class="num">Bounces</th><th class="num">Unsubs</th>
+          </tr></thead>
+          <tbody>${monthEmails.map(emailRow).join('')}</tbody>
+        </table></div>
+      </div>
+    </div>` : `<div class="card"><div class="card-body"><div class="empty">No email campaigns recorded for ${label}.</div></div></div>`}
+
+    <div class="section-label"><div class="dot"></div><h2>${label} 2026 — LinkedIn</h2><div class="line"></div></div>
+    <div class="kpi-grid" style="margin-bottom:16px;">
+      <div class="kpi-card"><div class="label">Followers</div><div class="value">${li.followers.toLocaleString()}</div><div class="sub">End of ${label}</div></div>
+      <div class="kpi-card"><div class="label">New Followers</div><div class="value">+${li.newFollowers}</div><div class="sub">${label} 2026</div></div>
+      <div class="kpi-card"><div class="label">Impressions</div><div class="value">${li.impressions.toLocaleString()}</div><div class="sub">${label} 2026</div></div>
+      <div class="kpi-card green"><div class="label">Reactions</div><div class="value">${li.reactions}</div><div class="sub">${label} 2026</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-header-dot"></div><h3>LinkedIn Snapshot — ${label} vs. Full Period</h3></div>
+      <div class="card-body"><div class="chart-wrap"><canvas id="${uid}-li"></canvas></div></div>
+    </div>
+  </div>`;
+
+  // Traffic doughnut
+  const chanColors = [C.teal, C.blue, C.green, C.orange, C.purple, C.red];
+  new Chart(document.getElementById(uid+'-traffic'), {
+    type:'doughnut',
+    data:{ labels:Object.keys(tChans), datasets:[{ data:Object.values(tChans), backgroundColor:chanColors, borderWidth:2, borderColor:'#fff' }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'right', labels:{font:{family:'Montserrat',size:10},usePointStyle:true,pointStyleWidth:8} }, tooltip:{...TIP,callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed} sessions`}} }, cutout:'60%' }
+  });
+
+  // Trend line (all months, highlight current)
+  const trendColors = MONTHS.map((_,i) => i===mi ? C.teal : 'rgba(31,42,68,0.2)');
+  const bgs         = MONTHS.map((_,i) => i===mi ? 'rgba(73,197,177,0.15)' : 'transparent');
+  new Chart(document.getElementById(uid+'-trend'), {
+    type:'bar',
+    data:{ labels:MONTHS, datasets:[
+      { label:'Users',    data:website.users,    backgroundColor:MONTHS.map((_,i)=>i===mi?C.teal:'rgba(73,197,177,0.25)'),   borderRadius:4 },
+      { label:'Sessions', data:website.sessions, backgroundColor:MONTHS.map((_,i)=>i===mi?C.blue:'rgba(31,42,68,0.15)'),     borderRadius:4 },
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ labels:{font:FONT,usePointStyle:true,pointStyleWidth:8} }, tooltip:{mode:'index',intersect:false,...TIP} }, scales:{ x:{grid:{display:false},ticks:{font:FONT}}, y:{grid:GRID(),ticks:{font:FONT}} } }
+  });
+
+  if (monthEmails.length > 0) {
+    // Open Rate horizontal bar
+    const ors = monthEmails.map(c=>parseFloat(((c.opened/c.sent)*100).toFixed(1)));
+    new Chart(document.getElementById(uid+'-or'), {
+      type:'bar',
+      data:{ labels:monthEmails.map(c=>c.subject.length>28?c.subject.slice(0,28)+'…':c.subject), datasets:[{ label:'Open Rate %', data:ors, backgroundColor:ors.map(r=>r>=30?'rgba(73,197,177,0.8)':r>=15?'rgba(31,42,68,0.65)':'rgba(224,82,82,0.65)'), borderRadius:3 }] },
+      options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{...TIP,callbacks:{label:ctx=>` ${ctx.parsed.x}%`}} }, scales:{ x:{grid:GRID(),ticks:{font:{family:'Montserrat',size:10},callback:v=>v+'%'}}, y:{grid:{display:false},ticks:{font:{family:'Montserrat',size:9}}} } }
+    });
+    // Sent bar
+    new Chart(document.getElementById(uid+'-sent'), {
+      type:'bar',
+      data:{ labels:monthEmails.map(c=>c.subject.length>28?c.subject.slice(0,28)+'…':c.subject), datasets:[
+        { label:'Sent',   data:monthEmails.map(c=>c.sent),   backgroundColor:C.blue,  borderRadius:3 },
+        { label:'Opened', data:monthEmails.map(c=>c.opened), backgroundColor:C.teal,  borderRadius:3 },
+      ]},
+      options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{labels:{font:FONT,usePointStyle:true,pointStyleWidth:8}}, tooltip:{mode:'index',intersect:false,...TIP} }, scales:{ x:{grid:GRID(),ticks:{font:{family:'Montserrat',size:10}}}, y:{grid:{display:false},ticks:{font:{family:'Montserrat',size:9}}} } }
+    });
+  }
+
+  // LinkedIn grouped bar vs full period
+  new Chart(document.getElementById(uid+'-li'), {
+    type:'bar',
+    data:{ labels:MONTHS, datasets:[
+      { label:'Impressions', data:linkedin.impressions, backgroundColor:MONTHS.map((_,i)=>i===mi?C.teal:'rgba(73,197,177,0.3)'), borderRadius:4, yAxisID:'yL' },
+      { label:'Reactions',   data:linkedin.reactions,   backgroundColor:MONTHS.map((_,i)=>i===mi?C.blue:'rgba(31,42,68,0.2)'),   borderRadius:4, yAxisID:'yR' },
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{labels:{font:FONT,usePointStyle:true,pointStyleWidth:8}}, tooltip:{mode:'index',intersect:false,...TIP} }, scales:{ x:{grid:{display:false},ticks:{font:FONT}}, yL:{type:'linear',position:'left',grid:GRID(),ticks:{font:FONT}}, yR:{type:'linear',position:'right',grid:{display:false},ticks:{font:FONT}} } }
+  });
+}
+
+/* ════════════════════ TAB SWITCHER ════════════════════ */
+function showTab(key) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-'+key).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => { if(t.getAttribute('onclick')===`showTab('${key}')`) t.classList.add('active'); });
+
+  if (key !== 'all' && !builtMonths[key]) {
+    const meta = monthMeta.find(m => m.key === key);
+    buildMonth(meta);
+    builtMonths[key] = true;
+  }
+}
+
+/* ════════════════════ INIT ════════════════════ */
+buildOverview();
+</script>
+</body>
+</html>
