@@ -1,0 +1,111 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Itinerary | Teal Products Partners Day 2026</title>
+<meta name="description" content="The itinerary for Teal Products Partners Day 2026 — a full day of technical insight, product launches and networking with Teal Products." />
+<link rel="icon" type="image/png" href="assets/airwave-teal.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<style>
+  /* ===== TEAL PRODUCTS — Teal #49C5B1 · Navy #1F2A44 · Montserrat ===== */
+  :root{
+    --teal:#49C5B1;--teal-dark:#2FA894;--teal-20:#DBF4EF;
+    --navy:#1F2A44;--grey:#5B6472;--grey-light:#F4F6F8;--line:#E4E8ED;
+    --shadow-lg:0 24px 60px rgba(31,42,68,.16);
+    --ease-out:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Montserrat',Arial,Helvetica,sans-serif;color:var(--navy);background:var(--grey-light);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+  img{max-width:100%;display:block}
+  h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
+
+  .page{max-width:720px;margin:0 auto;padding:clamp(32px,6vw,64px) 24px}
+  .card{border-radius:22px;overflow:hidden;box-shadow:var(--shadow-lg);background:#fff;opacity:0;transform:translateY(24px);animation:rise .8s var(--ease-out) .05s forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ---- Header ---- */
+  .head{background:var(--navy);color:#fff;padding:clamp(34px,5vw,48px) clamp(28px,4vw,48px);position:relative;overflow:hidden}
+  .head::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 120% at 90% 0%,rgba(73,197,177,.20),transparent 55%)}
+  .head .airwave-bg{position:absolute;right:-10%;bottom:-30%;width:60%;opacity:.16}
+  .aw-static{fill:none;stroke:#49C5B1;stroke-width:3;stroke-linecap:round;opacity:.6}
+  .head>*{position:relative}
+  .head .logo{height:50px;width:auto;margin-bottom:24px}
+  .head .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+  .head .eyebrow::before{content:"";width:24px;height:2px;background:var(--teal);border-radius:2px}
+  .head h1{font-size:clamp(1.7rem,4vw,2.4rem);margin-top:14px}
+  .head h1 .yr{color:var(--teal)}
+  .head .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px 22px}
+  .head .meta .m{display:flex;align-items:center;gap:9px;font-size:.92rem;color:#d7dfeb}
+  .head .meta .m svg{flex:none;color:var(--teal)}
+
+  /* ---- Timeline ---- */
+  .body{padding:clamp(34px,5vw,52px) clamp(24px,4vw,48px)}
+  .timeline{position:relative}
+  .timeline::before{content:"";position:absolute;left:118px;top:10px;bottom:10px;width:2px;background:linear-gradient(var(--teal),rgba(73,197,177,.25))}
+  .tl-item{display:grid;grid-template-columns:98px 1fr;gap:34px;padding:15px 0;position:relative;opacity:0;transform:translateY(16px);animation:fadeUp .6s var(--ease-out) forwards}
+  .tl-item:nth-child(1){animation-delay:.10s}.tl-item:nth-child(2){animation-delay:.18s}
+  .tl-item:nth-child(3){animation-delay:.26s}.tl-item:nth-child(4){animation-delay:.34s}
+  .tl-item:nth-child(5){animation-delay:.42s}.tl-item:nth-child(6){animation-delay:.50s}
+  .tl-item:nth-child(7){animation-delay:.58s}
+  @keyframes fadeUp{to{opacity:1;transform:none}}
+  .tl-item .time{text-align:right;font-weight:700;color:var(--teal-dark);font-size:.98rem;padding-top:1px}
+  .tl-item .dot{position:absolute;left:111px;top:20px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--teal);z-index:2;box-shadow:0 0 0 4px rgba(73,197,177,.12)}
+  .tl-item .body-txt{padding-left:16px}
+  .tl-item .body-txt h3{font-size:1.1rem}
+  .tl-item .body-txt p{color:var(--grey);font-size:.95rem;margin-top:3px}
+  .tl-item.highlight .body-txt h3{color:var(--teal-dark)}
+
+  .foot{border-top:1px solid var(--line);margin:0 clamp(24px,4vw,48px);padding:22px 0;display:flex;align-items:center;gap:10px;color:var(--grey);font-size:.9rem;font-weight:500}
+  .foot svg{flex:none;color:var(--teal-dark)}
+  .note{text-align:center;color:var(--grey);font-size:.85rem;margin-top:22px}
+  .note a{color:var(--teal-dark);font-weight:600;text-decoration:none}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0!important}
+    .card,.tl-item{opacity:1!important;transform:none!important}
+  }
+  @media (max-width:560px){
+    .timeline::before{left:6px}
+    .tl-item{grid-template-columns:1fr;gap:4px;padding-left:30px}
+    .tl-item .time{text-align:left}
+    .tl-item .dot{left:-1px;top:6px}
+    .tl-item .body-txt{padding-left:0}
+  }
+</style>
+
+<main class="page">
+  <div class="card">
+    <div class="head">
+      <svg class="airwave-bg" viewBox="0 0 400 400" aria-hidden="true"><g class="aw-static"><path d="M20 120 H240 q40 0 40 40 V380"/><path d="M20 170 H200 q40 0 40 40 V380"/><path d="M20 220 H160 q40 0 40 40 V380"/></g></svg>
+      <img class="logo" src="assets/teal-partner-logo.png" alt="Teal Partner" />
+      <span class="eyebrow">Event Itinerary</span>
+      <h1>Teal Products Partners Day <span class="yr">2026</span></h1>
+      <div class="meta">
+        <span class="m"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg> Thursday 17 September 2026</span>
+        <span class="m"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 9:30 AM – 4:00 PM</span>
+        <span class="m"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> Unit H, Alexandra Way, Ashchurch, Gloucestershire GL20 8NB</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="timeline">
+        <div class="tl-item"><div class="time">9:00 AM</div><div class="dot"></div><div class="body-txt"><h3>Registration &amp; Refreshments</h3><p>Arrive, collect your badge and enjoy a welcome coffee.</p></div></div>
+        <div class="tl-item"><div class="time">9:45 AM</div><div class="dot"></div><div class="body-txt"><h3>Welcome Presentation</h3><p>An introduction to the day from the Teal Products team.</p></div></div>
+        <div class="tl-item"><div class="time">10:15 AM</div><div class="dot"></div><div class="body-txt"><h3>Technical Sessions</h3><p>Presentations and technical deep-dives on smoke control.</p></div></div>
+        <div class="tl-item highlight"><div class="time">11:30 AM</div><div class="dot"></div><div class="body-txt"><h3>Product Demonstrations &amp; Launch</h3><p>Hands-on with live systems and the launch of the new [product name].</p></div></div>
+        <div class="tl-item"><div class="time">1:00 PM</div><div class="dot"></div><div class="body-txt"><h3>Lunch</h3><p>A hot lunch and informal networking.</p></div></div>
+        <div class="tl-item"><div class="time">2:00 PM</div><div class="dot"></div><div class="body-txt"><h3>Networking Session</h3><p>Connect with the Teal Products team and fellow partners.</p></div></div>
+        <div class="tl-item"><div class="time">3:45 PM</div><div class="dot"></div><div class="body-txt"><h3>Closing Remarks</h3><p>Key takeaways and a look ahead to what's next.</p></div></div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4zM6 1v3M10 1v3M14 1v3"/></svg>
+      Refreshments and a hot lunch are provided throughout the day.
+    </div>
+  </div>
+
+  <p class="note">Not yet registered? <a href="index.html">Reserve your place →</a></p>
+</main>

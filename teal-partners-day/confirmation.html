@@ -1,0 +1,396 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>You're registered | Teal Products Partners Day 2026</title>
+<meta name="description" content="Your place at Teal Products Partners Day 2026 is confirmed." />
+<link rel="icon" type="image/png" href="assets/airwave-teal.png" />
+
+<!-- Open Graph — used if this page is shared by URL on a public deployment -->
+<meta property="og:title" content="I'm attending Teal Products Partners Day 2026" />
+<meta property="og:description" content="A day of technical insight, networking and innovation with Teal Products." />
+<meta property="og:image" content="itinerary-graphic.png" />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<style>
+  /* ===== TEAL PRODUCTS — Teal #49C5B1 · Navy #1F2A44 · Montserrat ===== */
+  :root{
+    --teal:#49C5B1;--teal-dark:#2FA894;--teal-80:#6DD1C1;--teal-20:#DBF4EF;
+    --navy:#1F2A44;--grey:#5B6472;--grey-light:#F4F6F8;--line:#E4E8ED;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Montserrat',Arial,Helvetica,sans-serif;color:var(--navy);background:var(--grey-light);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+
+  .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(32px,6vw,64px) 24px;text-align:center}
+  .cols{display:flex;flex-wrap:wrap;gap:36px;align-items:center;justify-content:center;width:100%;max-width:1400px;margin:0 auto}
+  .col{min-width:0}
+  .col-thanks{max-width:560px;margin:0 auto clamp(24px,3vw,36px)}
+  .col-ticket{flex:0 1 540px}
+  .col-share{flex:0 1 460px}
+  .cols .ticket{margin:0}
+  .cols .post-preview{margin:0}
+  .cols .actions{margin-top:22px}
+  @media (max-width:1180px){
+    .cols{flex-direction:column;align-items:center}
+    .col{flex:0 1 auto;width:100%;max-width:560px}
+  }
+
+  .badge-ok{width:86px;height:86px;border-radius:50%;background:var(--teal-20);color:var(--teal-dark);display:grid;place-items:center;margin:0 auto 24px;position:relative;animation:pop .55s var(--ease) both}
+  .badge-ok::before{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--teal);opacity:0;animation:ring 1s var(--ease) .3s forwards}
+  @keyframes ring{0%{transform:scale(.8);opacity:.8}100%{transform:scale(1.25);opacity:0}}
+  .badge-ok svg path{stroke-dasharray:40;stroke-dashoffset:40;animation:draw .6s var(--ease) .35s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+
+  h1{font-size:clamp(1.9rem,4.4vw,2.4rem);font-weight:800;letter-spacing:-.02em}
+  .intro{color:var(--grey);margin-top:14px;max-width:460px;margin-inline:auto;font-size:1.02rem}
+  .cal-actions{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .cal-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:inherit;font-weight:700;font-size:1rem;padding:14px 28px;border-radius:50px;border:0;cursor:pointer;background:var(--teal);color:var(--navy);box-shadow:0 10px 24px rgba(73,197,177,.30);transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
+  .cal-btn:hover{background:var(--teal-80);transform:translateY(-2px);box-shadow:0 16px 30px rgba(73,197,177,.4)}
+  .cal-btn svg{flex:none}
+
+  /* ---- Ticket ---- */
+  .ticket{max-width:560px;width:100%;margin:36px auto 0;text-align:left;border-radius:20px;overflow:hidden;position:relative;background:var(--navy);color:#fff;box-shadow:0 24px 54px rgba(31,42,68,.32);animation:pop .6s var(--ease) .15s both}
+  .ticket::before{content:"";position:absolute;inset:0;background:radial-gradient(130% 120% at 6% 0%,rgba(73,197,177,.20),transparent 55%)}
+  .ticket .tk-aw{position:absolute;right:-30px;top:-10px;width:230px;height:auto;opacity:.9;pointer-events:none}
+  .tk-inner{position:relative;padding:34px 36px 0}
+  .tk-logo{height:46px;width:auto;margin-bottom:22px}
+  .tk-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--teal)}
+  .tk-eyebrow::before{content:"";width:24px;height:2px;background:var(--teal);border-radius:2px}
+  .tk-title{color:#fff;font-size:1.72rem;font-weight:900;letter-spacing:-.02em;margin-top:12px}
+  .tk-title span{color:var(--teal)}
+  .tk-meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 26px}
+  .tk-meta .m{display:flex;align-items:center;gap:9px;font-size:.92rem;font-weight:500;color:#d7dfeb}
+  .tk-meta .m svg{flex:none;color:var(--teal)}
+  .tk-foot{margin-top:26px;padding:20px 36px 26px;border-top:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .tk-attendee .tk-label{display:block;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+  .tk-attendee .tk-name{display:block;font-size:1.28rem;font-weight:800;color:#fff;margin-top:6px;line-height:1.15}
+  .tk-attendee .tk-company{display:block;font-size:.9rem;font-weight:500;color:#aeb9cb;margin-top:3px}
+  .tk-barcode{flex:none;background:#fff;border-radius:8px;padding:10px 12px 7px;text-align:center}
+  .tk-barcode .bars{display:block;height:52px;width:132px}
+  .tk-barcode .tk-num{display:block;font-size:.62rem;font-weight:700;letter-spacing:.14em;color:var(--navy);margin-top:5px;font-variant-numeric:tabular-nums}
+
+  .actions{margin-top:30px;display:flex;flex-direction:column;align-items:center;gap:16px}
+  .li-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:inherit;font-weight:700;font-size:1rem;padding:14px 26px;border-radius:50px;border:0;cursor:pointer;background:#0A66C2;color:#fff;box-shadow:0 10px 24px rgba(10,102,194,.30);transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
+  .li-btn:hover{background:#0959ab;transform:translateY(-2px);box-shadow:0 16px 30px rgba(10,102,194,.38)}
+  .li-btn:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none}
+  .li-btn svg{flex:none}
+  .hint{font-size:.84rem;color:var(--grey);max-width:420px;min-height:1.2em}
+  .confirm{max-width:460px;width:100%;margin:4px auto 0;background:#fff;border:1px solid #e2e6ea;border-radius:14px;padding:18px 20px;box-shadow:0 10px 30px rgba(31,42,68,.10);text-align:center;animation:fadeUp .35s var(--ease) both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .confirm-msg{font-size:.9rem;color:var(--grey);line-height:1.5;margin-bottom:16px}
+  .confirm-msg strong{color:#0A66C2;font-weight:700}
+  .confirm-btns{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+  .btn-ghost{background:transparent;border:0;color:var(--grey);font-family:inherit;font-weight:600;font-size:.9rem;cursor:pointer;padding:9px}
+  .btn-ghost:hover{color:var(--navy)}
+  .back{display:inline-flex;align-items:center;gap:8px;font-size:.92rem;font-weight:600;color:var(--teal-dark);text-decoration:none}
+  .back:hover{color:var(--navy)}
+
+  /* ---- LinkedIn post preview ---- */
+  .post-preview{max-width:560px;width:100%;margin:38px auto 0;text-align:left}
+  .pp-title{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);text-align:center;margin-bottom:14px}
+  .li-card{background:#fff;border:1px solid #e2e6ea;border-radius:12px;box-shadow:0 8px 24px rgba(31,42,68,.08);overflow:hidden}
+  .li-head{display:flex;align-items:center;gap:11px;padding:14px 16px 10px}
+  .li-avatar{flex:none;width:46px;height:46px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:800;font-size:1rem;letter-spacing:.02em}
+  .li-meta{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+  .li-name{font-weight:700;font-size:.98rem;color:#1a1a1a}
+  .li-sub{font-size:.76rem;color:#666;display:flex;align-items:center;gap:5px}
+  .li-in{flex:none;margin-left:auto;color:#0A66C2}
+  .li-text{display:block;width:100%;border:0;outline:none;font-family:inherit;font-size:.95rem;line-height:1.5;color:#1a1a1a;padding:2px 16px 12px;background:#fff;min-height:92px;white-space:pre-wrap;word-break:break-word}
+  .li-text:focus{background:#f3f6f8}
+  .li-mention{color:#0A66C2;font-weight:600}
+  .li-editnote{font-size:.72rem;color:#8a94a2;padding:0 16px 10px;display:flex;align-items:center;gap:6px}
+  .li-image{background:#eef1f4;border-top:1px solid #e2e6ea;min-height:120px;display:grid;place-items:center}
+  .li-image img{display:block;width:100%;height:auto}
+  .li-image .ph{font-size:.85rem;color:#8a94a2;padding:40px 0}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important}
+  }
+  @media (max-width:480px){
+    .tk-foot{flex-direction:column;align-items:flex-start}
+    .tk-inner{padding:28px 26px 0}
+    .tk-foot{padding:20px 26px 24px}
+  }
+</style>
+
+<main class="wrap">
+  <div class="col-thanks">
+    <div class="badge-ok"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <h1>Thank you for registering</h1>
+    <p class="intro">We look forward to welcoming you. A confirmation email has been sent with the itinerary for the day.</p>
+    <div class="cal-actions">
+      <button type="button" class="cal-btn" id="calBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4M12 13v4M10 15h4"/></svg> Add to Calendar</button>
+    </div>
+  </div>
+
+ <div class="cols">
+  <div class="col col-ticket">
+  <div class="ticket" id="ticket">
+    <img class="tk-aw" src="assets/tk-airwave.png" alt="" aria-hidden="true" />
+    <div class="tk-inner">
+      <img class="tk-logo" src="assets/teal-partner-logo.png" alt="Teal Products Certified Partner" />
+      <h3 class="tk-title">Teal Products Partners Day <span>2026</span></h3>
+      <div class="tk-meta">
+        <span class="m"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg> Thursday 17 September 2026</span>
+        <span class="m"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 9:30 AM – 4:00 PM</span>
+      </div>
+      <div class="tk-meta">
+        <span class="m"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> Ashchurch, Gloucestershire</span>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div class="tk-attendee">
+        <span class="tk-label">Attendee</span>
+        <span class="tk-name" id="tkName">Guest</span>
+        <span class="tk-company" id="tkCompany"></span>
+      </div>
+      <div class="tk-barcode">
+        <svg class="bars" id="bars" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+        <span class="tk-num" id="tkNum">#TP-2026-0000</span>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="col col-share">
+  <section class="post-preview" id="postPreview">
+    <p class="pp-title">Preview your LinkedIn post</p>
+    <div class="li-card">
+      <div class="li-head">
+        <div class="li-avatar" id="ppAvatar">You</div>
+        <div class="li-meta">
+          <span class="li-name" id="ppName">You</span>
+          <span class="li-sub">Post · <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg> Anyone</span>
+        </div>
+        <svg class="li-in" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+      </div>
+      <div class="li-text" id="ppText" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Post text — edit before sharing"></div>
+      <p class="li-editnote"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Tap the text to edit before you post</p>
+      <div class="li-image"><span class="ph" id="ppImagePh">Generating preview…</span><img id="ppImage" alt="Your Teal Products Partners Day 2026 ticket" style="display:none" /></div>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button type="button" class="li-btn" id="shareBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+      Share on LinkedIn
+    </button>
+    <p class="hint" id="hint"></p>
+  </div>
+  </div>
+ </div>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var p=new URLSearchParams(window.location.search);
+  var name=(p.get('name')||'').trim();
+  var company=(p.get('company')||'').trim();
+  var num=(p.get('ref')||'').trim();
+  document.getElementById('tkName').textContent=name||'Guest';
+  document.getElementById('tkCompany').textContent=company;
+  document.getElementById('tkNum').textContent=num||('#TP-2026-'+String(Math.floor(1000+Math.random()*9000)));
+
+  /* ---- Add to Calendar ---- */
+  (function(){
+    // 17 Sep 2026, 09:30–16:00 BST (UTC+1) → expressed in UTC
+    var startUTC='20260917T083000Z', endUTC='20260917T150000Z';
+    var title='Teal Products Partners Day 2026';
+    var loc='Unit H, Alexandra Way, Ashchurch, Gloucestershire GL20 8NB';
+    var desc='A day of technical insight, networking and innovation in smoke control and natural ventilation solutions with Teal Products.';
+    function esc(s){return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');}
+    var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Teal Products//Partners Day 2026//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VEVENT','UID:teal-partners-day-2026@tealproducts.com','DTSTAMP:20260101T000000Z','DTSTART:'+startUTC,'DTEND:'+endUTC,'SUMMARY:'+esc(title),'DESCRIPTION:'+esc(desc),'LOCATION:'+esc(loc),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    var calBtn=document.getElementById('calBtn');
+    if(calBtn)calBtn.addEventListener('click',function(){
+      var blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
+      var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='teal-products-partners-day-2026.ics';
+      document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1000);
+    });
+  })();
+
+  /* ---- Barcode (SVG so it renders in the shared image) ---- */
+  (function(){
+    var bars=document.getElementById('bars');if(!bars)return;
+    var widths=[2,1,3,1,2,1,1,3,2,1,3,2,1,2,1,3,1,2,1,3,2,1,3,1,1,2,3,1,2,1,3,2,1,2,1,3,1,2,2,1],x=0,rects='';
+    for(var i=0;i<widths.length;i++){var w=widths[i];rects+='<rect x="'+x+'" y="0" width="'+w+'" height="52" fill="#1F2A44"/>';x+=w+2;}
+    bars.setAttribute('viewBox','0 0 '+(x-2)+' 52');
+    bars.innerHTML=rects;
+  })();
+
+  /* ---- Share to LinkedIn ---- */
+  var btn=document.getElementById('shareBtn'),hint=document.getElementById('hint'),ticket=document.getElementById('ticket');
+  var ppText=document.getElementById('ppText'),ppImage=document.getElementById('ppImage'),ppImagePh=document.getElementById('ppImagePh');
+  var defaultText="I'll be attending Teal Products Partners Day 2026! A day of technical insight, networking, and innovation in smoke control and natural ventilation solutions. #FireSafety #SmokeVentilation #TealProducts";
+  var attendee={name:name||'Guest',company:company,ref:document.getElementById('tkNum').textContent};
+
+  // Populate the post preview (name, avatar initials).
+  document.getElementById('ppName').textContent=attendee.name;
+  (function(){
+    var parts=attendee.name.split(/\s+/).filter(Boolean);
+    var initials=parts.length?(parts[0].charAt(0)+(parts.length>1?parts[parts.length-1].charAt(0):'')).toUpperCase():'YOU';
+    document.getElementById('ppAvatar').textContent=initials;
+  })();
+
+  function setHint(msg){hint.textContent=msg||'';}
+  function getText(){return ((ppText.innerText||'').replace(/ /g,' ').trim()||defaultText).slice(0,2800);}
+
+  // Render the editable caption as plain text. LinkedIn's composer can't carry a live
+  // @tag from a shared link, so we keep it as text; the attendee can type @Teal Products
+  // in LinkedIn to tag the page.
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  ppText.innerHTML=esc(defaultText);
+
+  // Wait for every Montserrat weight the ticket uses AND the ticket images before drawing,
+  // so canvas text is measured/drawn with the real font (correct spacing) and the logo/airwave
+  // are available to drawImage.
+  function assetsReady(){
+    var ps=[];
+    if(document.fonts&&document.fonts.load){
+      ['400 16px Montserrat','500 16px Montserrat','700 16px Montserrat','800 16px Montserrat','900 16px Montserrat']
+        .forEach(function(f){try{ps.push(document.fonts.load(f));}catch(e){}});
+      if(document.fonts.ready)ps.push(document.fonts.ready);
+    }
+    ['.tk-logo','.tk-aw'].forEach(function(sel){
+      var im=ticket.querySelector(sel);
+      if(im&&!im.complete){ps.push(new Promise(function(res){im.addEventListener('load',res);im.addEventListener('error',res);}));}
+    });
+    return Promise.all(ps).catch(function(){});
+  }
+
+  // Draw the ticket straight onto a <canvas>. Doing it by hand (instead of html2canvas)
+  // means text is drawn with an explicitly-loaded font, so spacing never collapses, and
+  // the graphics/icons are drawn deterministically — identical in every browser.
+  var TEAL='#49C5B1', NAVY='#1F2A44', WHITE='#ffffff', SUB='#d7dfeb', MUTED='#aeb9cb';
+  function makeTicketCanvas(){
+    var S=2, W=560, H=388, P=34;
+    var cv=document.createElement('canvas');
+    cv.width=W*S; cv.height=H*S;
+    var ctx=cv.getContext('2d');
+    ctx.scale(S,S);
+    ctx.textBaseline='alphabetic'; ctx.textAlign='left';
+
+    function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+    function spaced(text,x,y,ls){var cx=x;for(var i=0;i<text.length;i++){ctx.fillText(text[i],cx,y);cx+=ctx.measureText(text[i]).width+ls;}return cx-ls;}
+    function spacedWidth(text,ls){var t=0;for(var i=0;i<text.length;i++)t+=ctx.measureText(text[i]).width+ls;return t-ls;}
+    // icons (drawn in a 16px box with top-left at x,y)
+    function ic(){ctx.strokeStyle=TEAL;ctx.lineWidth=1.7;ctx.lineJoin='round';ctx.lineCap='round';}
+    function calIcon(x,y){ic();rr(x+1,y+3,14,12,2.2);ctx.stroke();ctx.beginPath();ctx.moveTo(x+1,y+6.5);ctx.lineTo(x+15,y+6.5);ctx.moveTo(x+5,y+1.2);ctx.lineTo(x+5,y+4);ctx.moveTo(x+11,y+1.2);ctx.lineTo(x+11,y+4);ctx.stroke();}
+    function clockIcon(x,y){ic();ctx.beginPath();ctx.arc(x+8,y+8,6.6,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.moveTo(x+8,y+4);ctx.lineTo(x+8,y+8);ctx.lineTo(x+11,y+10);ctx.stroke();}
+    function pinIcon(x,y){ic();var cx=x+8,cy=y+6.4,r=5.4;ctx.beginPath();ctx.arc(cx,cy,r,Math.PI*0.72,Math.PI*0.28,false);ctx.lineTo(cx,y+15.2);ctx.closePath();ctx.stroke();ctx.beginPath();ctx.arc(cx,cy,1.9,0,Math.PI*2);ctx.stroke();}
+
+    // Background + subtle teal glow
+    rr(0,0,W,H,20); ctx.fillStyle=NAVY; ctx.fill();
+    ctx.save(); rr(0,0,W,H,20); ctx.clip();
+    var g=ctx.createRadialGradient(50,-10,0,50,-10,380);
+    g.addColorStop(0,'rgba(73,197,177,0.20)'); g.addColorStop(1,'rgba(73,197,177,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    var aw=document.querySelector('.tk-aw');
+    if(aw&&aw.naturalWidth){ctx.globalAlpha=0.9;ctx.drawImage(aw,W-230+30,-12,230,230);ctx.globalAlpha=1;}
+    ctx.restore();
+
+    // Logo
+    var logo=document.querySelector('.tk-logo');
+    if(logo&&logo.naturalWidth){var lh=44,lw=lh*logo.naturalWidth/logo.naturalHeight;ctx.drawImage(logo,P,32,lw,lh);}
+
+    // Title
+    ctx.font='900 27px Montserrat, Arial, sans-serif'; ctx.fillStyle=WHITE;
+    var t1='Teal Products Partners Day ';
+    ctx.fillText(t1,P,150);
+    ctx.fillStyle=TEAL; ctx.fillText('2026',P+ctx.measureText(t1).width,150);
+
+    // Meta
+    ctx.font='600 15px Montserrat, Arial, sans-serif';
+    calIcon(P,178); ctx.fillStyle=SUB; ctx.fillText('Thursday 17 September 2026',P+25,190);
+    var col2=300; clockIcon(col2,178); ctx.fillStyle=SUB; ctx.fillText('9:30 AM – 4:00 PM',col2+25,190);
+    pinIcon(P,212); ctx.fillStyle=SUB; ctx.fillText('Ashchurch, Gloucestershire',P+25,224);
+
+    // Divider (full width)
+    ctx.strokeStyle='rgba(255,255,255,0.16)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(0,250); ctx.lineTo(W,250); ctx.stroke();
+
+    // Attendee
+    ctx.font='700 11px Montserrat, Arial, sans-serif'; ctx.fillStyle=TEAL; spaced('ATTENDEE',P,302,1.8);
+    ctx.font='800 21px Montserrat, Arial, sans-serif'; ctx.fillStyle=WHITE; ctx.fillText(attendee.name||'Guest',P,334);
+    if(attendee.company){ctx.font='500 14px Montserrat, Arial, sans-serif'; ctx.fillStyle=MUTED; ctx.fillText(attendee.company,P,356);}
+
+    // Barcode — vertically centred against the attendee block
+    var bw=162,bh=78,bx=W-P-bw,by=284;
+    rr(bx,by,bw,bh,8); ctx.fillStyle=WHITE; ctx.fill();
+    var widths=[2,1,3,1,2,1,1,3,2,1,3,2,1,2,1,3,1,2,1,3,2,1,3,1,1,2,3,1,2,1,3,2,1,2,1,3,1,2,2,1];
+    var tot=0; for(var i=0;i<widths.length;i++)tot+=widths[i]+1; tot-=1;
+    var barsW=bw-24, scB=barsW/tot, cx=bx+12, barY=by+13, barH=40;
+    ctx.fillStyle=NAVY;
+    for(var i=0;i<widths.length;i++){var w=widths[i]*scB; ctx.fillRect(cx,barY,w,barH); cx+=w+scB;}
+    ctx.font='700 10px Montserrat, Arial, sans-serif'; ctx.fillStyle=NAVY;
+    var ref=attendee.ref||''; var rw=spacedWidth(ref,1.1); spaced(ref,bx+bw/2-rw/2,by+bh-11,1.1);
+
+    return Promise.resolve(cv);
+  }
+
+  // Render the ticket once (after fonts + images are ready), cache the PNG, reuse for preview + share.
+  var ticketPromise=null;
+  function renderTicket(){
+    if(ticketPromise)return ticketPromise;
+    ticketPromise=assetsReady().then(makeTicketCanvas).then(function(canvas){return canvas.toDataURL('image/png');});
+    return ticketPromise;
+  }
+  renderTicket().then(function(url){
+    ppImage.src=url;ppImage.style.display='block';if(ppImagePh)ppImagePh.style.display='none';
+  }).catch(function(){if(ppImagePh)ppImagePh.textContent='Preview unavailable — you can still share.';});
+
+  function dataUrlToBlob(url){return fetch(url).then(function(r){return r.blob();});}
+  function liComposerUrl(){return 'https://www.linkedin.com/feed/?shareActive=true&text='+encodeURIComponent(getText());}
+  function showManualLink(prefix){
+    hint.innerHTML=(prefix||'')+'<a href="'+liComposerUrl()+'" target="_blank" rel="noopener" style="color:#0A66C2;font-weight:700">Open LinkedIn to post →</a>';
+  }
+  function downloadBlob(blob){
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='teal-partners-day-ticket.png';
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1000);
+  }
+  function canShareImage(){
+    try{
+      if(!navigator.canShare)return false;
+      var probe=new File([new Blob([''],{type:'image/png'})],'t.png',{type:'image/png'});
+      return navigator.canShare({files:[probe]});
+    }catch(e){return false;}
+  }
+
+  // Open LinkedIn pre-filled so the attendee reviews & posts it themselves.
+  //  • Mobile / supported browsers: native share sheet — caption + ticket image handed
+  //    to LinkedIn together, ready to post.
+  //  • Desktop: LinkedIn's composer opens with the caption pre-filled, and the ticket
+  //    image downloads so they attach it in one tap before posting.
+  function shareToLinkedIn(){
+    var useShare=canShareImage();
+    // Open the LinkedIn tab synchronously (inside the click) so the popup blocker allows it.
+    var liWin=null;
+    if(!useShare)liWin=window.open(liComposerUrl(),'_blank');
+    btn.disabled=true;setHint('Preparing your post…');
+    renderTicket().then(dataUrlToBlob).then(function(blob){
+      if(!blob)throw new Error('image failed');
+      if(useShare){
+        var file=new File([blob],'teal-partners-day-ticket.png',{type:'image/png'});
+        return navigator.share({files:[file],title:'Teal Products Partners Day 2026',text:getText()})
+          .then(function(){setHint('Finish and post it in LinkedIn.');})
+          .catch(function(err){if(err&&err.name==='AbortError'){setHint('');}else{throw err;}});
+      }
+      downloadBlob(blob);
+      if(liWin)setHint('LinkedIn opened with your caption ready — attach the ticket image that just downloaded, then hit Post.');
+      else showManualLink('Your ticket downloaded. ');
+    }).catch(function(){
+      if(!useShare&&!liWin)showManualLink('');
+    }).finally(function(){btn.disabled=false;});
+  }
+
+  btn.addEventListener('click',shareToLinkedIn);
+})();
+</script>
