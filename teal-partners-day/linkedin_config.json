@@ -1,0 +1,8 @@
+{
+  "client_id": "78w9s38k9k3onr",
+  "client_secret": "WPL_AP1.Y2a8RNXBOtcAKR1i.mda7PQ==",
+  "redirect_uri": "http://localhost:7788/oauth/linkedin/callback",
+  "api_version": "202606",
+  "org_id": "",
+  "org_name": "Teal Products"
+}

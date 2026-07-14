@@ -1,0 +1,158 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reserve your place | Teal Products Partners Day 2026</title>
+<meta name="description" content="Reserve your place at Teal Products Partners Day 2026 — a day of technical insight, networking and innovation with Teal Products and leading smoke ventilation manufacturers." />
+<link rel="icon" type="image/png" href="assets/airwave-teal.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<style>
+  /* ===== TEAL PRODUCTS — Teal #49C5B1 · Navy #1F2A44 · Montserrat ===== */
+  :root{
+    --teal:#49C5B1;--teal-dark:#2FA894;--teal-80:#6DD1C1;--teal-40:#B6E8DF;--teal-20:#DBF4EF;
+    --navy:#1F2A44;--grey:#5B6472;--grey-light:#F4F6F8;--line:#E4E8ED;--coral:#FB9B6D;
+    --shadow-lg:0 24px 60px rgba(31,42,68,.16);--radius-sm:10px;
+    --ease:cubic-bezier(.22,.61,.36,1);--ease-out:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Montserrat',Arial,Helvetica,sans-serif;color:var(--navy);background:var(--grey-light);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+  img{max-width:100%;display:block}
+  h1,h2,h3{line-height:1.14;font-weight:800;letter-spacing:-.02em}
+
+  .page{max-width:1000px;margin:0 auto;padding:clamp(32px,6vw,64px) 24px}
+
+  .head{text-align:center;max-width:640px;margin:0 auto clamp(28px,4vw,40px)}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;justify-content:center;font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-dark)}
+  .eyebrow::before,.eyebrow::after{content:"";width:26px;height:2px;background:var(--teal);border-radius:2px}
+  .head h1{font-size:clamp(1.9rem,4.4vw,2.9rem);margin-top:16px}
+  .head p{color:var(--grey);font-size:1.05rem;margin-top:14px}
+
+  /* ---- Shell ---- */
+  .aw-static{fill:none;stroke:#49C5B1;stroke-width:3;stroke-linecap:round;opacity:.22}
+  .shell{display:grid;grid-template-columns:.82fr 1.18fr;border-radius:22px;overflow:hidden;box-shadow:var(--shadow-lg);opacity:0;transform:translateY(24px);animation:rise .8s var(--ease-out) .05s forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  .aside{background:var(--navy);color:#fff;padding:48px 40px;position:relative;overflow:hidden}
+  .aside::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 120% at 10% 0%,rgba(73,197,177,.18),transparent 55%)}
+  .aside .airwave-bg{position:absolute;left:-20%;bottom:-10%;width:100%;opacity:.20}
+  .aside>*{position:relative}
+  .aside .logo{height:52px;width:auto;margin-bottom:28px}
+  .aside h2{color:#fff;font-size:1.7rem}
+  .aside p{color:#c3cede;margin-top:14px;font-size:.98rem}
+  .aside .ticks{list-style:none;margin-top:26px;display:grid;gap:15px}
+  .aside .ticks li{display:flex;gap:12px;align-items:flex-start;font-size:.96rem;color:#e7edf5}
+  .aside .ticks svg{flex:none;color:var(--teal);margin-top:2px}
+  .aside .when{margin-top:28px;display:grid;gap:11px;border-top:1px solid rgba(255,255,255,.12);padding-top:22px}
+  .aside .when .row{display:flex;align-items:center;gap:12px;font-size:.95rem;color:#e7edf5}
+  .aside .when .row svg{flex:none;color:var(--teal)}
+
+  /* ---- Form ---- */
+  .form{background:#fff;padding:44px clamp(28px,4vw,48px)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .field{margin-bottom:18px}
+  .field.full{grid-column:1/-1}
+  label{display:block;font-size:.86rem;font-weight:600;margin-bottom:7px;color:var(--navy)}
+  label .req{color:var(--coral)}
+  .field input,.field select,.field textarea{width:100%;font-family:inherit;font-size:.97rem;color:var(--navy);padding:13px 15px;border:1.5px solid var(--line);border-radius:var(--radius-sm);background:#fff;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235B6472' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+  .field textarea{resize:vertical;min-height:84px}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 4px rgba(73,197,177,.16)}
+  .form-foot{margin-top:22px;display:flex;flex-direction:column;gap:14px}
+  .form-note{font-size:.82rem;color:var(--grey)}
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;font-family:inherit;font-weight:700;font-size:1.05rem;padding:17px 32px;border-radius:50px;border:0;cursor:pointer;overflow:hidden;background:var(--teal);color:var(--navy);box-shadow:0 10px 24px rgba(73,197,177,.34);transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s var(--ease)}
+  .btn::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .6s var(--ease)}
+  .btn:hover{background:var(--teal-80);transform:translateY(-2px);box-shadow:0 16px 32px rgba(73,197,177,.42)}
+  .btn:hover::after{left:130%}
+  .btn .arw{transition:transform .3s var(--ease)}
+  .btn:hover .arw{transform:translateX(5px)}
+
+  /* ---- Success ---- */
+  .success{display:none;text-align:center;padding:48px 10px}
+  .success.show{display:block;animation:fadeUp .6s var(--ease) both}
+  .success .badge-ok{width:86px;height:86px;border-radius:50%;background:var(--teal-20);color:var(--teal-dark);display:grid;place-items:center;margin:0 auto 24px;position:relative;animation:pop .55s var(--ease) both}
+  .success .badge-ok::before{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--teal);opacity:0;animation:ring 1s var(--ease) .3s forwards}
+  @keyframes ring{0%{transform:scale(.8);opacity:.8}100%{transform:scale(1.25);opacity:0}}
+  .success .badge-ok svg path{stroke-dasharray:40;stroke-dashoffset:40;animation:draw .6s var(--ease) .35s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .success h2{font-size:1.9rem;color:var(--navy)}
+  .success p{color:var(--grey);margin-top:14px;max-width:440px;margin-inline:auto}
+  @keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+    .shell{opacity:1!important;transform:none!important}
+  }
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr}
+    .aside{padding:40px 32px}
+  }
+  @media (max-width:620px){ .grid2{grid-template-columns:1fr} }
+</style>
+
+<main class="page">
+  <div class="head">
+    <span class="eyebrow">Teal Products Partners Day 2026</span>
+    <h1>Reserve your place</h1>
+    <p>We look forward to welcoming you at Teal Products Partners Day.</p>
+  </div>
+
+  <div class="shell">
+    <aside class="aside">
+      <svg class="airwave-bg" viewBox="0 0 400 400" aria-hidden="true"><g class="aw-static"><path d="M20 120 H240 q40 0 40 40 V380"/><path d="M20 170 H200 q40 0 40 40 V380"/><path d="M20 220 H160 q40 0 40 40 V380"/></g></svg>
+      <img class="logo" src="assets/teal-partner-logo.png" alt="Teal Partner" />
+      <h2>Join us on the day</h2>
+      <p>Connect with our team and hear what's coming next for Teal Products.</p>
+      <ul class="ticks">
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Launch of the new [product name]</li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Hands-on with the latest systems</li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> CPD-accredited technical sessions</li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Refreshments &amp; lunch included</li>
+      </ul>
+      <div class="when">
+        <div class="row"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg> Thursday 17 September 2026</div>
+        <div class="row"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 9:30 AM – 4:00 PM</div>
+        <div class="row" style="align-items:flex-start"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:3px"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> <span>Teal Products Ltd, Unit H, Alexandra Way, Ashchurch, Gloucestershire, GL20 8NB</span></div>
+      </div>
+    </aside>
+
+    <div class="form">
+      <form id="rsvpForm" novalidate>
+        <div class="grid2">
+          <div class="field"><label for="firstName">First Name <span class="req">*</span></label><input type="text" id="firstName" name="firstName" placeholder="Jane" required autocomplete="given-name" /></div>
+          <div class="field"><label for="lastName">Last Name <span class="req">*</span></label><input type="text" id="lastName" name="lastName" placeholder="Smith" required autocomplete="family-name" /></div>
+          <div class="field"><label for="company">Company Name <span class="req">*</span></label><input type="text" id="company" name="company" placeholder="Company Ltd" required autocomplete="organization" /></div>
+          <div class="field"><label for="email">Email Address <span class="req">*</span></label><input type="email" id="email" name="email" placeholder="jane@company.co.uk" required autocomplete="email" /></div>
+          <div class="field"><label for="phone">Telephone Number <span class="req">*</span></label><input type="tel" id="phone" name="phone" placeholder="01234 567890" required autocomplete="tel" /></div>
+          <div class="field"><label for="attendees">Additional Attendees <span class="req">*</span></label><select id="attendees" name="attendees" required><option value="" disabled selected>Select…</option><option>N/A</option><option>1</option><option>2</option></select></div>
+          <div class="field full"><label for="dietary">Dietary Requirements</label><input type="text" id="dietary" name="dietary" placeholder="e.g. Vegetarian, gluten-free, none" /></div>
+        </div>
+        <div class="form-foot">
+          <button type="submit" class="btn">Confirm My RSVP <span class="arw">→</span></button>
+          <p class="form-note">We'll only use your details to manage your attendance. Fields marked <span style="color:var(--coral)">*</span> are required.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var form=document.getElementById('rsvpForm');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){form.reportValidity();var fi=form.querySelector(':invalid');if(fi)fi.focus();return;}
+    var data=Object.fromEntries(new FormData(form).entries());
+    console.log('RSVP submission:',data);
+    // TODO: send `data` to your backend, CRM or Klaviyo here.
+    // Redirect to the confirmation page with the attendee's ticket details.
+    var fullName=[data.firstName,data.lastName].filter(Boolean).join(' ').trim();
+    var ref='#TP-2026-'+String(Math.floor(1000+Math.random()*9000));
+    var q=new URLSearchParams({name:fullName||'Guest',company:data.company||'',ref:ref});
+    window.location.href='confirmation.html?'+q.toString();
+  });
+})();
+</script>
